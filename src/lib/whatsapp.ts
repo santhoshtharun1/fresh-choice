@@ -12,7 +12,11 @@ export type Customer = {
   phone: string;
   address: string;
   delivery: "near" | "far";
+  // Cash on delivery is only offered within the free-delivery radius
+  payment: "cod" | "upi";
 };
+
+export const paysCod = (c: Customer) => c.delivery === "near" && c.payment === "cod";
 
 export function orderMessage(lines: OrderLine[], c: Customer) {
   const total = lines.reduce((s, l) => s + l.price * l.qty, 0);
@@ -23,6 +27,9 @@ export function orderMessage(lines: OrderLine[], c: Customer) {
     c.delivery === "near"
       ? `Within ${site.freeDeliveryRadiusKm} km – please deliver`
       : `Beyond ${site.freeDeliveryRadiusKm} km – send by Rapido parcel, I'll pay the fare`;
+  const payment = paysCod(c)
+    ? "Cash on delivery"
+    : "UPI – please send the UPI details on WhatsApp";
 
   return [
     `Hi ${site.name}, I'd like to order:`,
@@ -35,6 +42,7 @@ export function orderMessage(lines: OrderLine[], c: Customer) {
     c.phone ? `Phone: ${c.phone}` : null,
     `Address: ${c.address}`,
     `Delivery: ${delivery}`,
+    `Payment: ${payment}`,
   ]
     .filter((l) => l !== null)
     .join("\n");

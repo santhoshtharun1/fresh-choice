@@ -90,14 +90,15 @@ export default function Home() {
             <dl className="mt-6 space-y-5">
               <div>
                 <dt className="text-lg font-semibold">Within {site.freeDeliveryRadiusKm} km of our store</dt>
-                <dd className="text-[var(--muted)]">Our own team brings it to your door.</dd>
+                <dd className="text-[var(--muted)]">Our own team brings it to your door. Pay cash on delivery or by UPI.</dd>
               </div>
               <div>
                 <dt className="text-lg font-semibold">More than {site.freeDeliveryRadiusKm} km away</dt>
-                <dd className="text-[var(--muted)]">We pack it and send it by Rapido parcel. You pay the Rapido fare, which we&apos;ll tell you before booking.</dd>
+                <dd className="text-[var(--muted)]">We pack it and send it by Rapido parcel. Pay by UPI on WhatsApp before we dispatch, plus the Rapido fare, which we&apos;ll tell you before booking.</dd>
               </div>
             </dl>
-            <p className="mt-6 text-sm text-[var(--muted)]">
+            <p className="mt-6 font-semibold">No minimum order.</p>
+            <p className="mt-2 text-sm text-[var(--muted)]">
               Store: <a href={site.mapsUrl} target="_blank" rel="noopener" className="underline underline-offset-4">{site.address}</a> · {site.hours}
             </p>
           </div>
