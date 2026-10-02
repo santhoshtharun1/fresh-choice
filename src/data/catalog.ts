@@ -106,6 +106,7 @@ export const products: Product[] = [
       { size: "5 L", price: 2400 },
     ],
     art: { kind: "bottle", fill: "#E8B84A" },
+    photo: "/products/safflower-oil.webp",
     featured: true,
   },
   {
@@ -156,6 +157,7 @@ export const products: Product[] = [
       { size: "500 ml", price: 250 },
     ],
     art: { kind: "bottle", fill: "#D9C27A" },
+    photo: "/products/castor-oil.webp",
   },
   {
     slug: "deepam-oil",
