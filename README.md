@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fresh Choice – website (Phase 1)
 
-## Getting Started
+Catalog site for Sai Sangama Sales Corporation. Customers browse products, build an order list, and send it as one WhatsApp message.
 
-First, run the development server:
+Stack: Next.js 16 (App Router) + Tailwind v4, fonts self-hosted via @fontsource. No backend in Phase 1.
+
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # production build check
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where to change things
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| What | File |
+|---|---|
+| WhatsApp number, phone, store area, hours, FSSAI no. | `src/config/site.ts` |
+| Products, sizes, prices, categories | `src/data/catalog.ts` |
+| WhatsApp message format | `src/lib/whatsapp.ts` |
+| Colours and fonts | `src/app/globals.css` |
+| Home page sections | `src/app/page.tsx` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Product images are SVG illustrations (`src/components/ProductArt.tsx`) until real photos arrive.
 
-## Learn More
+## Before go-live (needs client)
 
-To learn more about Next.js, take a look at the following resources:
+- [ ] Real WhatsApp number, store area, hours, FSSAI licence number
+- [ ] Real product list, sizes and prices
+- [ ] Product photos
+- [ ] Logo (if Fresh Choice has an official one)
+- [ ] Domain
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy (Vercel)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Push this repo to GitHub.
+2. vercel.com → Add New Project → import the repo → Deploy (no settings needed).
+3. Project → Settings → Domains → add the client's domain and set the DNS records Vercel shows.
 
-## Deploy on Vercel
+## Roadmap
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Phase 2:** move catalog to Supabase, admin page for prices/stock, cart checkout with Razorpay/UPI, orders table, distance-based delivery fee.
+- **Phase 3:** customer accounts, repeat/subscription orders, WhatsApp API notifications.

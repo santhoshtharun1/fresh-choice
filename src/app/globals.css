@@ -1,26 +1,64 @@
 @import "tailwindcss";
+@import "@fontsource/young-serif/400.css";
+@import "@fontsource-variable/hanken-grotesk/index.css";
+@import "@fontsource-variable/noto-sans-kannada/index.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --leaf: #1f4a2e;
+  --leaf-deep: #143320;
+  --oil: #e2a12e;
+  --oil-soft: #f7e7bf;
+  --rice: #f5f6f0;
+  --card: #e9ecdf;
+  --ink: #1a1e19;
+  --muted: #5d6658;
+  --line: #d6dacb;
+  --wood: #6e4b2a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Hanken Grotesk Variable", system-ui, sans-serif;
+  --font-display: "Young Serif", Georgia, serif;
+  --font-kannada: "Noto Sans Kannada Variable", "Hanken Grotesk Variable", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--rice);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+:focus-visible {
+  outline: 3px solid var(--oil);
+  outline-offset: 2px;
+}
+
+/* the one animated moment: oil dripping from the press in the hero */
+@keyframes drip {
+  0% { transform: translateY(0) scale(0.4); opacity: 0; }
+  15% { opacity: 1; transform: translateY(0) scale(1); }
+  70% { transform: translateY(78px) scale(1); opacity: 1; }
+  80%, 100% { transform: translateY(82px) scale(1.4, 0.3); opacity: 0; }
+}
+@keyframes fill {
+  from { transform: scaleY(0.35); }
+  to { transform: scaleY(1); }
+}
+@keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.35); } 100% { transform: scale(1); } }
+.bump { animation: bump .45s ease-out; }
+.drip { animation: drip 2.6s cubic-bezier(.5,0,.7,1) infinite; transform-box: fill-box; transform-origin: center; }
+.drip-2 { animation-delay: 1.3s; }
+.oil-fill { animation: fill 3.5s ease-out both; transform-box: fill-box; transform-origin: bottom; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .drip, .oil-fill, .bump { animation: none; }
+  .drip { opacity: 0; }
 }
