@@ -52,6 +52,17 @@ export function Footer() {
           <p className="text-[var(--rice)]/55">© {new Date().getFullYear()} {site.name} · {site.partner}</p>
         </div>
       </div>
+      {/* Developer credit: own line, with room below for the floating WhatsApp button on phones */}
+      <p className="border-t border-white/10 px-4 pb-24 pt-4 text-center text-xs text-[var(--rice)]/50 sm:pb-4">
+        Website by{" "}
+        {site.credit.url ? (
+          <a href={site.credit.url} target="_blank" rel="noopener" className="font-semibold text-[var(--rice)]/75 underline-offset-4 hover:underline">
+            {site.credit.name}
+          </a>
+        ) : (
+          <span className="font-semibold text-[var(--rice)]/75">{site.credit.name}</span>
+        )}
+      </p>
     </footer>
   );
 }
