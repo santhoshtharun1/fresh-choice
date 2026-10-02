@@ -30,7 +30,7 @@ export function Footer() {
           <ul className="space-y-2 text-[var(--rice)]/80">
             <li><a href={waLink(`Hi ${site.name}, I have a question.`)} className="hover:underline" target="_blank" rel="noopener">WhatsApp {site.phoneDisplay}</a></li>
             <li><a href={`tel:+${site.whatsapp}`} className="hover:underline">Call {site.phoneDisplay}</a></li>
-            <li>{site.storeArea}</li>
+            <li><a href={site.mapsUrl} className="hover:underline" target="_blank" rel="noopener">{site.address}</a></li>
             <li>{site.hours}</li>
           </ul>
         </div>
