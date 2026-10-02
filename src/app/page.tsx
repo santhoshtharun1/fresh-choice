@@ -105,6 +105,41 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Store */}
+      <section id="store" className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
+        <h2 className="font-display text-3xl sm:text-4xl">Visit our store</h2>
+        <div className="mt-8 grid overflow-hidden rounded-[28px] border border-[var(--line)] bg-white md:grid-cols-[1fr_1.2fr]">
+          <div className="p-6 sm:p-8">
+            <p className="font-display text-2xl">{site.name}</p>
+            <p className="mt-3 text-[var(--muted)]">{site.address}</p>
+            <p className="mt-3 font-semibold">{site.hours}</p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              <a href={site.mapsUrl} target="_blank" rel="noopener" className="rounded-full bg-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--rice)] hover:bg-[var(--leaf-deep)]">
+                Directions
+              </a>
+              <a href={`tel:+${site.whatsapp}`} className="rounded-full border border-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--leaf)] hover:bg-[var(--leaf)]/5">
+                Call
+              </a>
+              <a
+                href={waLink(`Hi ${site.name}, I'd like to visit the store.`)}
+                target="_blank"
+                rel="noopener"
+                className="flex items-center gap-2 rounded-full border border-[#1E8E4E] px-5 py-2.5 font-semibold text-[#177240] hover:bg-[#1E8E4E]/5"
+              >
+                <WaIcon className="size-5" /> WhatsApp
+              </a>
+            </div>
+          </div>
+          <iframe
+            title={`Map to ${site.name}`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(site.mapsQuery)}&output=embed`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="h-72 w-full border-0 md:h-full md:min-h-80"
+          />
+        </div>
+      </section>
+
       {/* Bulk */}
       <section className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
         <div className="flex flex-col items-start justify-between gap-6 border-y border-[var(--line)] py-10 md:flex-row md:items-center">

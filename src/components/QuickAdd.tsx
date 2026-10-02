@@ -45,7 +45,7 @@ export function QuickAdd({ product }: { product: Product }) {
           >
             −
           </button>
-          <span className="text-sm font-semibold tabular-nums" aria-live="polite">{qty} in list</span>
+          <span className="text-sm font-semibold tabular-nums" aria-live="polite">{qty}</span>
           <button
             type="button"
             onClick={() => add(product.slug, size)}
