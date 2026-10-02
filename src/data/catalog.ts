@@ -70,6 +70,7 @@ export const products: Product[] = [
       { size: "5 L", price: 1750 },
     ],
     art: { kind: "bottle", fill: "#F0C64A" },
+    photo: "/products/sunflower-oil.webp",
     featured: true,
   },
   {
@@ -123,6 +124,7 @@ export const products: Product[] = [
       { size: "5 L", price: 3000 },
     ],
     art: { kind: "bottle", fill: "#B5651D" },
+    photo: "/products/sesame-oil.webp",
     featured: true,
   },
   {
