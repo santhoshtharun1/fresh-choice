@@ -5,9 +5,10 @@ import type { Product } from "@/data/catalog";
 import { useOrder } from "./OrderProvider";
 
 export function QuickAdd({ product }: { product: Product }) {
-  const { add } = useOrder();
+  const { add, setQty, lines } = useOrder();
   const [size, setSize] = useState(product.variants[0].size);
-  const [done, setDone] = useState(false);
+  // once this size is in the list, the Add button becomes a − qty + stepper
+  const qty = lines.find((l) => l.slug === product.slug && l.size === size)?.qty ?? 0;
 
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -34,17 +35,35 @@ export function QuickAdd({ product }: { product: Product }) {
           {product.variants[0].size}
         </span>
       )}
-      <button
-        type="button"
-        onClick={() => {
-          add(product.slug, size);
-          setDone(true);
-          setTimeout(() => setDone(false), 1400);
-        }}
-        className="h-10 rounded-full sm:flex-1 bg-[var(--leaf)] px-4 text-sm font-semibold text-[var(--rice)] transition-colors hover:bg-[var(--leaf-deep)]"
-      >
-        {done ? "Added ✓" : "Add"}
-      </button>
+      {qty > 0 ? (
+        <div className="flex h-10 items-center justify-between rounded-full bg-[var(--leaf)] text-[var(--rice)] sm:flex-1" role="group" aria-label={`${product.name} ${size} in your order list`}>
+          <button
+            type="button"
+            onClick={() => setQty(product.slug, size, qty - 1)}
+            aria-label={qty === 1 ? `Remove ${product.name} ${size}` : `Remove one ${product.name} ${size}`}
+            className="grid h-10 w-11 place-items-center rounded-full text-xl leading-none hover:bg-[var(--leaf-deep)]"
+          >
+            −
+          </button>
+          <span className="text-sm font-semibold tabular-nums" aria-live="polite">{qty} in list</span>
+          <button
+            type="button"
+            onClick={() => add(product.slug, size)}
+            aria-label={`Add one more ${product.name} ${size}`}
+            className="grid h-10 w-11 place-items-center rounded-full text-xl leading-none hover:bg-[var(--leaf-deep)]"
+          >
+            +
+          </button>
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => add(product.slug, size)}
+          className="h-10 rounded-full sm:flex-1 bg-[var(--leaf)] px-4 text-sm font-semibold text-[var(--rice)] transition-colors hover:bg-[var(--leaf-deep)]"
+        >
+          Add
+        </button>
+      )}
     </div>
   );
 }

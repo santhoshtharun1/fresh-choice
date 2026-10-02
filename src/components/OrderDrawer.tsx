@@ -8,7 +8,7 @@ import { orderMessage, rupees, waLink, type Customer } from "@/lib/whatsapp";
 import { priceOf, useOrder } from "./OrderProvider";
 import { ProductArt } from "./ProductArt";
 
-const empty: Customer = { name: "", phone: "", address: "", delivery: "near" };
+const empty: Customer = { name: "", phone: "", address: "", delivery: "near", payment: "cod" };
 
 export function OrderDrawer() {
   const { lines, open, setOpen, setQty, total, clear } = useOrder();
@@ -76,7 +76,7 @@ export function OrderDrawer() {
           <div className="flex flex-1 flex-col items-center justify-center gap-3 px-8 text-center">
             <p className="font-display text-xl">Nothing here yet</p>
             <p className="text-[var(--muted)]">
-              Add oils or shavige from the shop. When you&apos;re ready, we&apos;ll send the whole list to us on WhatsApp in one message.
+              Add oils from the shop. When you&apos;re ready, we&apos;ll send the whole list to us on WhatsApp in one message.
             </p>
             <Link href="/shop" onClick={() => setOpen(false)} className="mt-2 rounded-full bg-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--rice)]">
               Browse the shop
@@ -89,8 +89,8 @@ export function OrderDrawer() {
                 const p = getProduct(l.slug)!;
                 return (
                   <li key={l.slug + l.size} className="flex gap-3 py-4">
-                    <div className="grid size-16 shrink-0 place-items-center rounded-2xl bg-[var(--card)]">
-                      <ProductArt product={p} className="h-14 w-auto" />
+                    <div className="relative grid size-16 shrink-0 place-items-center overflow-hidden rounded-2xl bg-[var(--card)]">
+                      <ProductArt product={p} className="h-14 w-auto" sizes="64px" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="font-semibold leading-tight">{p.name}</p>
@@ -125,19 +125,42 @@ export function OrderDrawer() {
                 <legend className="mb-2 text-sm font-semibold">How far are you from us?</legend>
                 <div className="grid gap-2">
                   <Choice
+                    name="delivery"
                     checked={c.delivery === "near"}
                     onChange={() => setC({ ...c, delivery: "near" })}
                     title={`Within ${site.freeDeliveryRadiusKm} km`}
-                    note="Our team delivers to your door."
+                    note="Our team delivers to your door. Pay cash on delivery or UPI."
                   />
                   <Choice
+                    name="delivery"
                     checked={c.delivery === "far"}
                     onChange={() => setC({ ...c, delivery: "far" })}
                     title={`More than ${site.freeDeliveryRadiusKm} km`}
-                    note="We send it by Rapido parcel. You pay the Rapido fare."
+                    note="We send it by Rapido parcel. Pay by UPI on WhatsApp before dispatch, plus the Rapido fare."
                   />
                 </div>
               </fieldset>
+              {c.delivery === "near" && (
+                <fieldset>
+                  <legend className="mb-2 text-sm font-semibold">How will you pay?</legend>
+                  <div className="grid gap-2">
+                    <Choice
+                      name="payment"
+                      checked={c.payment === "cod"}
+                      onChange={() => setC({ ...c, payment: "cod" })}
+                      title="Cash on delivery"
+                      note="Pay our delivery person when the order arrives."
+                    />
+                    <Choice
+                      name="payment"
+                      checked={c.payment === "upi"}
+                      onChange={() => setC({ ...c, payment: "upi" })}
+                      title="UPI"
+                      note="We'll send UPI details on WhatsApp."
+                    />
+                  </div>
+                </fieldset>
+              )}
               {tried && missing && (
                 <p className="text-sm font-semibold text-[#A3361F]" role="alert">
                   Add your name and address so we know where to deliver.
@@ -187,10 +210,10 @@ function Field(props: {
   );
 }
 
-function Choice({ checked, onChange, title, note }: { checked: boolean; onChange: () => void; title: string; note: string }) {
+function Choice({ name, checked, onChange, title, note }: { name: string; checked: boolean; onChange: () => void; title: string; note: string }) {
   return (
     <label className={`flex cursor-pointer gap-3 rounded-2xl border p-3 ${checked ? "border-[var(--leaf)] bg-[var(--leaf)]/5" : "border-[var(--line)]"}`}>
-      <input type="radio" name="delivery" checked={checked} onChange={onChange} className="mt-1 accent-[var(--leaf)]" />
+      <input type="radio" name={name} checked={checked} onChange={onChange} className="mt-1 accent-[var(--leaf)]" />
       <span>
         <span className="block font-semibold">{title}</span>
         <span className="block text-sm text-[var(--muted)]">{note}</span>
