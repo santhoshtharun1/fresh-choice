@@ -23,6 +23,8 @@ export type Product = {
   uses: string[];
   variants: Variant[];
   art: { kind: ArtKind; fill: string; tint?: string };
+  // Real photo in public/products/; the illustration in `art` is the fallback
+  photo?: string;
   featured?: boolean;
 };
 
@@ -51,6 +53,7 @@ export const products: Product[] = [
       { size: "5 L", price: 1500 },
     ],
     art: { kind: "bottle", fill: "#E3A934" },
+    photo: "/products/groundnut-oil.webp",
     featured: true,
   },
   {
@@ -85,6 +88,7 @@ export const products: Product[] = [
       { size: "5 L", price: 3000 },
     ],
     art: { kind: "bottle", fill: "#F1E6C2" },
+    photo: "/products/coconut-oil.webp",
     featured: true,
   },
   {
@@ -134,6 +138,7 @@ export const products: Product[] = [
       { size: "500 ml", price: 300 },
     ],
     art: { kind: "bottle", fill: "#C9A227" },
+    photo: "/products/mustard-oil.webp",
     featured: true,
   },
   {
@@ -160,6 +165,7 @@ export const products: Product[] = [
     uses: ["Pooja lamps", "Temple deepam"],
     variants: [{ size: "1 L", price: 220 }],
     art: { kind: "bottle", fill: "#E07B2E" },
+    photo: "/products/deepam-oil.webp",
   },
 ];
 

@@ -1,8 +1,11 @@
+import Image from "next/image";
 import type { Product } from "@/data/catalog";
 
-// Illustrated packshots so the site looks finished before real photos arrive.
-// TODO(client): swap for real product photos (public/products/<slug>.jpg).
-export function ProductArt({ product, className = "" }: { product: Product; className?: string }) {
+// Real photo when we have one (fills its positioned parent), otherwise an illustrated packshot.
+export function ProductArt({ product, className = "", sizes = "(min-width: 1024px) 360px, 50vw" }: { product: Product; className?: string; sizes?: string }) {
+  if (product.photo) {
+    return <Image src={product.photo} alt={product.name} fill sizes={sizes} className="object-cover" />;
+  }
   const { kind, fill, tint } = product.art;
   const id = product.slug;
 

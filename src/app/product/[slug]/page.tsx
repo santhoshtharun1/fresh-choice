@@ -34,8 +34,8 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
       </nav>
 
       <div className="mt-6 grid gap-10 md:grid-cols-2">
-        <div className="grid aspect-square place-items-center rounded-[36px] bg-[var(--card)]">
-          <ProductArt product={p} className="h-[82%] w-auto" />
+        <div className="relative grid aspect-square place-items-center overflow-hidden rounded-[36px] bg-[var(--card)]">
+          <ProductArt product={p} className="h-[82%] w-auto" sizes="(min-width: 768px) 560px, 100vw" />
         </div>
         <div>
           <h1 className="font-display text-4xl leading-tight sm:text-5xl">{p.name}</h1>

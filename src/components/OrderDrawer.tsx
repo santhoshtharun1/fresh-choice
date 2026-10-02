@@ -89,8 +89,8 @@ export function OrderDrawer() {
                 const p = getProduct(l.slug)!;
                 return (
                   <li key={l.slug + l.size} className="flex gap-3 py-4">
-                    <div className="grid size-16 shrink-0 place-items-center rounded-2xl bg-[var(--card)]">
-                      <ProductArt product={p} className="h-14 w-auto" />
+                    <div className="relative grid size-16 shrink-0 place-items-center overflow-hidden rounded-2xl bg-[var(--card)]">
+                      <ProductArt product={p} className="h-14 w-auto" sizes="64px" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="font-semibold leading-tight">{p.name}</p>
