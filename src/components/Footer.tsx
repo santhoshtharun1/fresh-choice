@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/config/site";
 import { categories } from "@/data/catalog";
+import { policies } from "@/data/policies";
 import { waLink } from "@/lib/whatsapp";
 
 export function Footer() {
@@ -35,8 +36,22 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10 py-5 text-center text-sm text-[var(--rice)]/55">
-        © {new Date().getFullYear()} {site.partner}
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-6 text-sm sm:px-6 md:flex-row md:justify-between">
+          <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[var(--rice)]/75">
+            {policies.map((p) => (
+              <li key={p.slug}><Link href={`/policies/${p.slug}`} className="hover:underline">{p.title}</Link></li>
+            ))}
+          </ul>
+          <div className="flex flex-col items-center gap-2 md:items-end">
+            <ul className="flex gap-2" aria-label="Payment methods">
+              {["Cash on delivery", "UPI"].map((m) => (
+                <li key={m} className="rounded-md bg-[var(--rice)] px-2.5 py-1 text-xs font-semibold text-[var(--leaf-deep)]">{m}</li>
+              ))}
+            </ul>
+            <p className="text-[var(--rice)]/55">© {new Date().getFullYear()} {site.name} | {site.partner}</p>
+          </div>
+        </div>
       </div>
     </footer>
   );

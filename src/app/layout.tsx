@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { OrderDrawer } from "@/components/OrderDrawer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: {
     default: `${site.name} – Wood-pressed oils in Bengaluru`,
     template: `%s | ${site.name}`,
