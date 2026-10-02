@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { site } from "@/config/site";
 import { products } from "@/data/catalog";
-import { ChekkuPress } from "@/components/ChekkuPress";
+import Image from "next/image";
+import { Comparison, Faq, HowItsMade, OilGuide } from "@/components/HomeSections";
 import { ProductCard } from "@/components/ProductCard";
 import { WaIcon } from "@/components/OrderDrawer";
 import { waLink } from "@/lib/whatsapp";
@@ -36,9 +37,19 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <div className="relative mx-auto w-full max-w-[340px] md:max-w-[400px]">
-            <div className="absolute inset-x-6 bottom-6 top-16 rounded-full bg-[var(--oil)]/15 blur-3xl" aria-hidden />
-            <ChekkuPress className="relative w-full" />
+          <div className="relative mx-auto w-full max-w-[560px]">
+            <div className="absolute -inset-4 rounded-full bg-[var(--oil)]/20 blur-3xl" aria-hidden />
+            <div className="relative overflow-hidden rounded-[32px] bg-white p-3 shadow-2xl shadow-black/30">
+              <Image
+                src="/lineup.webp"
+                alt="Fresh Choice wood-pressed oils: deepam, safflower, groundnut, sunflower, coconut, sesame and castor"
+                width={980}
+                height={560}
+                priority
+                sizes="(min-width: 768px) 520px, 100vw"
+                className="h-auto w-full"
+              />
+            </div>
           </div>
         </div>
         <div className="relative border-t border-white/10 bg-[var(--leaf-deep)]">
@@ -60,6 +71,10 @@ export default function Home() {
           {featured.map((p) => <ProductCard key={p.slug} product={p} />)}
         </div>
       </section>
+
+      <HowItsMade />
+      <OilGuide />
+      <Comparison />
 
       {/* How ordering works — a real sequence, so it's numbered */}
       <section className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
@@ -139,6 +154,8 @@ export default function Home() {
           />
         </div>
       </section>
+
+      <Faq />
 
       {/* Bulk */}
       <section className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
