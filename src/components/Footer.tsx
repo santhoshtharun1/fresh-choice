@@ -14,6 +14,12 @@ export function Footer() {
             Official sales and distribution partner: {site.partner}. Serving homes, restaurants and shops across Bengaluru.
           </p>
           <p className="mt-4 text-sm text-[var(--rice)]/60">{site.fssai}</p>
+          <div className="mt-6 flex flex-wrap items-center gap-2 text-sm">
+            <span className="text-[var(--rice)]/60">We accept</span>
+            {["Cash on delivery", "UPI"].map((m) => (
+              <span key={m} className="rounded-full border border-white/20 px-3 py-1 text-[var(--rice)]/85">{m}</span>
+            ))}
+          </div>
         </div>
         <div>
           <p className="mb-3 font-semibold">Shop</p>
@@ -37,20 +43,13 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-6 text-sm sm:px-6 md:flex-row md:justify-between">
-          <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[var(--rice)]/75">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 py-6 text-sm sm:px-6 md:flex-row md:justify-between">
+          <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[var(--rice)]/70">
             {policies.map((p) => (
               <li key={p.slug}><Link href={`/policies/${p.slug}`} className="hover:underline">{p.title}</Link></li>
             ))}
           </ul>
-          <div className="flex flex-col items-center gap-2 md:items-end">
-            <ul className="flex gap-2" aria-label="Payment methods">
-              {["Cash on delivery", "UPI"].map((m) => (
-                <li key={m} className="rounded-md bg-[var(--rice)] px-2.5 py-1 text-xs font-semibold text-[var(--leaf-deep)]">{m}</li>
-              ))}
-            </ul>
-            <p className="text-[var(--rice)]/55">© {new Date().getFullYear()} {site.name} | {site.partner}</p>
-          </div>
+          <p className="text-[var(--rice)]/55">© {new Date().getFullYear()} {site.name} · {site.partner}</p>
         </div>
       </div>
     </footer>
