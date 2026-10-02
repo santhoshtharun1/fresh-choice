@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { site } from "@/config/site";
-import { categories, products, productsIn } from "@/data/catalog";
+import { products } from "@/data/catalog";
 import { ChekkuPress } from "@/components/ChekkuPress";
 import { ProductCard } from "@/components/ProductCard";
-import { ProductArt } from "@/components/ProductArt";
 import { WaIcon } from "@/components/OrderDrawer";
 import { waLink } from "@/lib/whatsapp";
 
@@ -16,12 +15,12 @@ export default function Home() {
       <section className="relative overflow-hidden bg-[var(--leaf)] text-[var(--rice)]">
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-10 pt-12 sm:px-6 md:grid-cols-[1.15fr_1fr] md:pb-16 md:pt-20">
           <div>
-            <p lang="kn" className="font-kannada text-lg text-[var(--oil)]">ಗಾಣದ ಎಣ್ಣೆ · ಶಾವಿಗೆ</p>
+            <p lang="kn" className="font-kannada text-lg text-[var(--oil)]">ಗಾಣದ ಎಣ್ಣೆ</p>
             <h1 className="mt-3 font-display text-[2.6rem] leading-[1.05] sm:text-6xl md:text-[4.2rem]">
               Oil pressed slowly in wood, the way it used to be made.
             </h1>
             <p className="mt-6 max-w-md text-lg text-[var(--rice)]/80">
-              Groundnut, sesame and coconut oil from a wooden chekku, plus ragi and wheat shavige. Pick what you need and send us the list on WhatsApp.
+              Groundnut, sunflower, coconut, safflower, sesame and more, pressed in a wooden chekku. Pick what you need and send us the list on WhatsApp.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/shop" className="rounded-full bg-[var(--oil)] px-6 py-3 font-semibold text-[var(--ink)] hover:bg-[#EDB447]">
@@ -51,43 +50,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="mx-auto max-w-6xl px-4 pt-16 sm:px-6">
-        <h2 className="font-display text-3xl sm:text-4xl">What we sell</h2>
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {categories.map((c) => {
-            const sample = productsIn(c.id).slice(0, 3);
-            return (
-              <Link
-                key={c.id}
-                href={`/shop/${c.id}`}
-                className="group flex flex-col justify-between rounded-[28px] border border-[var(--line)] bg-white p-6 hover:border-[var(--leaf)]"
-              >
-                <div>
-                  <p lang="kn" className="font-kannada text-[var(--wood)]">{c.kannada}</p>
-                  <h3 className="mt-1 font-display text-2xl">{c.name}</h3>
-                  <p className="mt-2 text-[var(--muted)]">{c.blurb}</p>
-                </div>
-                <div className="mt-6 flex items-end justify-between">
-                  <div className="flex -space-x-4">
-                    {sample.map((p) => (
-                      <ProductArt key={p.slug} product={p} className="h-20 w-auto" />
-                    ))}
-                  </div>
-                  <span className="text-sm font-semibold text-[var(--leaf)] group-hover:underline underline-offset-4">
-                    {productsIn(c.id).length} products
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
       {/* Featured */}
       <section className="mx-auto max-w-6xl px-4 pt-20 sm:px-6">
         <div className="flex items-end justify-between gap-4">
-          <h2 className="font-display text-3xl sm:text-4xl">Most ordered</h2>
+          <h2 className="font-display text-3xl sm:text-4xl">Our oils</h2>
           <Link href="/shop" className="font-semibold text-[var(--leaf)] underline underline-offset-4">See all products</Link>
         </div>
         <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-3">

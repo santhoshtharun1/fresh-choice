@@ -8,18 +8,18 @@ export function ShopView({ active }: { active?: CategoryId }) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 pt-10 sm:px-6">
-      <h1 className="font-display text-4xl sm:text-5xl">{cat ? cat.name : "All products"}</h1>
+      <h1 className="font-display text-4xl sm:text-5xl">{cat ? cat.name : "Our oils"}</h1>
       {cat && <p lang="kn" className="mt-1 font-kannada text-lg text-[var(--wood)]">{cat.kannada}</p>}
       <p className="mt-3 max-w-xl text-[var(--muted)]">
-        {cat ? cat.blurb : "Wood-pressed oils, shavige and a few pantry staples."} Prices follow the market and are confirmed on WhatsApp.
+        {cat ? cat.blurb : "Every oil is pressed slowly in a wooden chekku."} Prices follow the market and are confirmed on WhatsApp.
       </p>
 
-      <nav className="-mx-4 mt-8 flex gap-2 overflow-x-auto px-4 pb-2" aria-label="Categories">
+      {categories.length > 1 && <nav className="-mx-4 mt-8 flex gap-2 overflow-x-auto px-4 pb-2" aria-label="Categories">
         <Tab href="/shop" on={!active}>All</Tab>
         {categories.map((c) => (
           <Tab key={c.id} href={`/shop/${c.id}`} on={active === c.id}>{c.name}</Tab>
         ))}
-      </nav>
+      </nav>}
 
       <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-3">
         {list.map((p) => <ProductCard key={p.slug} product={p} />)}

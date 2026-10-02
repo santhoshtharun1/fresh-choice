@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description:
-    "Wood-pressed groundnut, sesame and coconut oil, plus ragi and wheat shavige. Order on WhatsApp, delivered across Bengaluru.",
+    "Wood-pressed groundnut, sunflower, coconut, safflower, sesame, mustard and castor oil. Order on WhatsApp, delivered across Bengaluru.",
   openGraph: {
     title: `${site.name} – Wood-pressed oils in Bengaluru`,
     description: site.tagline,

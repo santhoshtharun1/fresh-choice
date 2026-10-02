@@ -76,7 +76,7 @@ export function OrderDrawer() {
           <div className="flex flex-1 flex-col items-center justify-center gap-3 px-8 text-center">
             <p className="font-display text-xl">Nothing here yet</p>
             <p className="text-[var(--muted)]">
-              Add oils or shavige from the shop. When you&apos;re ready, we&apos;ll send the whole list to us on WhatsApp in one message.
+              Add oils from the shop. When you&apos;re ready, we&apos;ll send the whole list to us on WhatsApp in one message.
             </p>
             <Link href="/shop" onClick={() => setOpen(false)} className="mt-2 rounded-full bg-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--rice)]">
               Browse the shop
