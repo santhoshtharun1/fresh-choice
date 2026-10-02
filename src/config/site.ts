@@ -9,6 +9,8 @@ export const site = {
   phoneDisplay: "+91 97319 39909",
   address:
     "176, 7th Cross Rd, near Ganesha Temple Road, Gopal Nagar, Nelgadernhalli, Nagasandra, Bengaluru, Karnataka 560073",
+  // Shown on the store card and used for the embedded map
+  mapsQuery: "Fresh Choice, 176, 7th Cross Rd, Gopal Nagar, Nagasandra, Bengaluru 560073",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Fresh+Choice+176+7th+Cross+Rd+Gopal+Nagar+Nagasandra+Bengaluru+560073",
   freeDeliveryRadiusKm: 3,
