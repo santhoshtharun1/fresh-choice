@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
       </nav>
 
       <div className="mt-6 grid gap-10 md:grid-cols-2">
-        <div className="relative grid aspect-square place-items-center overflow-hidden rounded-[36px] bg-[var(--card)]">
+        <div className="relative grid aspect-square place-items-center self-start overflow-hidden rounded-[36px] bg-[var(--card)] md:sticky md:top-28">
           <ProductArt product={p} className="h-[82%] w-auto" sizes="(min-width: 768px) 560px, 100vw" />
         </div>
         <div>
@@ -51,6 +51,36 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
                 <li key={u} className="rounded-full bg-[var(--oil-soft)] px-3 py-1 text-sm">{u}</li>
               ))}
             </ul>
+          </div>
+
+          {/* Lamp oil may be a blend, so the pressing claims are only shown for the pressed oils */}
+          {p.slug !== "deepam-oil" && <ul className="mt-8 grid gap-3 sm:grid-cols-3">
+            {[
+              ["Slow wooden press", "Pressed in a wooden chekku, so the oil stays cool."],
+              ["Nothing added", "No chemicals, no preservatives, no refining."],
+              ["Natural aroma", "Keeps the smell, taste and colour of the seed."],
+            ].map(([t, d]) => (
+              <li key={t} className="rounded-2xl bg-[var(--card)] p-4">
+                <p className="flex items-center gap-2 font-semibold">
+                  <svg viewBox="0 0 16 16" className="size-4 shrink-0 text-[var(--leaf)]" aria-hidden>
+                    <path d="M3 8.5l3 3 7-7" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {t}
+                </p>
+                <p className="mt-1 text-sm text-[var(--muted)]">{d}</p>
+              </li>
+            ))}
+          </ul>}
+
+          <div className="mt-8 rounded-2xl border border-[var(--line)] p-4 text-sm">
+            <p className="font-semibold">Storage</p>
+            <p className="mt-1 text-[var(--muted)]">
+              Keep the cap closed and store away from sunlight and heat. Use a dry spoon. Natural settling at the bottom is normal. The best-before date is printed on the bottle.
+            </p>
+            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-semibold text-[var(--leaf)]">
+              <Link href="/#oil-guide" className="underline-offset-4 hover:underline">Which oil for what?</Link>
+              <Link href="/#faq" className="underline-offset-4 hover:underline">Common questions</Link>
+            </p>
           </div>
         </div>
       </div>

@@ -51,7 +51,7 @@ const guide: { need: string; kannada: string; slugs: string[] }[] = [
 
 export function OilGuide() {
   return (
-    <section className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
+    <section id="oil-guide" className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
       <h2 className="font-display text-3xl sm:text-4xl">Which oil for what?</h2>
       <p className="mt-2 text-[var(--muted)]">Not sure where to start? Pick by what you&apos;ll use it for.</p>
       <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
