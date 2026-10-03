@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { site } from "@/config/site";
-import { products } from "@/data/catalog";
+import { categories } from "@/data/catalog";
 import { policies } from "@/data/policies";
 import { waLink } from "@/lib/whatsapp";
 
@@ -22,13 +22,15 @@ export function Footer() {
           </div>
         </div>
         <div>
-          <p className="mb-3 font-semibold">Our oils</p>
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-[var(--rice)]/80 sm:grid-cols-1">
-            {products.map((p) => (
-              <li key={p.slug}>
-                <Link href={`/product/${p.slug}`} className="hover:underline">{p.name}</Link>
+          <p className="mb-3 font-semibold">Shop</p>
+          {/* One link per category, so new ranges (ghee etc.) appear here automatically */}
+          <ul className="space-y-2 text-[var(--rice)]/80">
+            {categories.map((c) => (
+              <li key={c.id}>
+                <Link href={`/shop/${c.id}`} className="hover:underline">{c.name}</Link>
               </li>
             ))}
+            <li><Link href="/bulk" className="hover:underline">Bulk and wholesale</Link></li>
           </ul>
         </div>
         <div>
@@ -40,7 +42,6 @@ export function Footer() {
               ["/#faq", "Questions"],
               ["/#delivery", "Delivery and payment"],
               ["/#store", "Visit our store"],
-              ["/bulk", "Bulk and wholesale"],
             ].map(([href, label]) => (
               <li key={href}><Link href={href} className="hover:underline">{label}</Link></li>
             ))}
