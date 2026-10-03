@@ -48,6 +48,12 @@ export function orderMessage(lines: OrderLine[], c: Customer) {
     .join("\n");
 }
 
-export function quickOrderMessage(name: string, size: string, qty: number) {
-  return `Hi ${site.name}, I'd like to order ${name} – ${size} × ${qty}. Please share the price and delivery details.`;
+export function quickOrderMessage(name: string, size: string, qty: number, price: number) {
+  return [
+    `Hi ${site.name}, I'd like to order:`,
+    "",
+    `• ${name} – ${size} × ${qty} = ${rupees(price * qty)}`,
+    "",
+    "Please confirm and share delivery details.",
+  ].join("\n");
 }

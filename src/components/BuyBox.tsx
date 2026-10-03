@@ -65,7 +65,7 @@ export function BuyBox({ product }: { product: Product }) {
           Add to order list
         </button>
         <a
-          href={waLink(quickOrderMessage(product.name, size, qty))}
+          href={waLink(quickOrderMessage(product.name, size, qty, price))}
           target="_blank"
           rel="noopener"
           className="flex h-12 items-center justify-center gap-2 rounded-full border-2 border-[#1E8E4E] font-semibold text-[#177240] hover:bg-[#1E8E4E]/5"
