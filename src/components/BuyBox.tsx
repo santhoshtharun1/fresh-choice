@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Product } from "@/data/catalog";
+import { percentOff, type Product } from "@/data/catalog";
 import { quickOrderMessage, rupees, waLink } from "@/lib/whatsapp";
 import { useOrder } from "./OrderProvider";
 import { WaIcon } from "./OrderDrawer";
@@ -11,7 +11,9 @@ export function BuyBox({ product }: { product: Product }) {
   const [size, setSize] = useState(product.variants[0].size);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
-  const price = product.variants.find((v) => v.size === size)!.price;
+  const variant = product.variants.find((v) => v.size === size)!;
+  const { price } = variant;
+  const off = percentOff(variant);
 
   return (
     <div className="mt-8 rounded-[28px] border border-[var(--line)] bg-white p-5 sm:p-6">
@@ -25,7 +27,10 @@ export function BuyBox({ product }: { product: Product }) {
             >
               <input type="radio" name="size" value={v.size} checked={size === v.size} onChange={() => setSize(v.size)} className="sr-only" />
               <span className="block font-semibold">{v.size}</span>
-              <span className="block text-sm tabular-nums opacity-80">{rupees(v.price)}</span>
+              <span className="block text-sm tabular-nums opacity-80">
+                {percentOff(v) > 0 && <s className="mr-1 opacity-70">{rupees(v.mrp!)}</s>}
+                {rupees(v.price)}
+              </span>
             </label>
           ))}
         </div>
@@ -37,7 +42,15 @@ export function BuyBox({ product }: { product: Product }) {
           <span className="w-10 text-center text-lg tabular-nums" aria-live="polite">{qty}</span>
           <button type="button" onClick={() => setQty(qty + 1)} aria-label="Increase quantity" className="grid size-10 place-items-center rounded-full border border-[var(--line)] text-xl">+</button>
         </div>
-        <p className="font-display text-3xl tabular-nums">{rupees(price * qty)}</p>
+        <div className="text-right">
+          {off > 0 && (
+            <p className="text-sm tabular-nums">
+              <s className="text-[var(--muted)]">{rupees(variant.mrp! * qty)}</s>{" "}
+              <span className="font-bold text-[#A3361F]">{off}% off</span>
+            </p>
+          )}
+          <p className="font-display text-3xl tabular-nums">{rupees(price * qty)}</p>
+        </div>
       </div>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
