@@ -7,7 +7,7 @@ import { waLink } from "@/lib/whatsapp";
 export function Footer() {
   return (
     <footer className="mt-24 bg-[var(--leaf-deep)] text-[var(--rice)]">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_0.9fr_1.2fr]">
         <div>
           <p className="font-display text-3xl">{site.name}</p>
           <p className="mt-3 max-w-sm text-[var(--rice)]/75">
@@ -23,6 +23,7 @@ export function Footer() {
         </div>
         <div>
           <p className="mb-3 font-semibold">Shop</p>
+          {/* One link per category, so new ranges (ghee etc.) appear here automatically */}
           <ul className="space-y-2 text-[var(--rice)]/80">
             {categories.map((c) => (
               <li key={c.id}>
@@ -30,6 +31,20 @@ export function Footer() {
               </li>
             ))}
             <li><Link href="/bulk" className="hover:underline">Bulk and wholesale</Link></li>
+          </ul>
+        </div>
+        <div>
+          <p className="mb-3 font-semibold">Help</p>
+          <ul className="space-y-2 text-[var(--rice)]/80">
+            {[
+              ["/#how-its-made", "How it's made"],
+              ["/#oil-guide", "Which oil for what?"],
+              ["/#faq", "Questions"],
+              ["/#delivery", "Delivery and payment"],
+              ["/#store", "Visit our store"],
+            ].map(([href, label]) => (
+              <li key={href}><Link href={href} className="hover:underline">{label}</Link></li>
+            ))}
           </ul>
         </div>
         <div>

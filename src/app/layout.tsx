@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { OrderDrawer } from "@/components/OrderDrawer";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
+import { StickyOrderBar } from "@/components/StickyOrderBar";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Header />
           <main id="main" className="flex-1">{children}</main>
           <Footer />
+          <StickyOrderBar />
           <WhatsAppFab />
           <OrderDrawer />
         </OrderProvider>

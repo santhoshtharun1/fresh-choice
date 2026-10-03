@@ -2,6 +2,8 @@ import Link from "next/link";
 import { site } from "@/config/site";
 import { products } from "@/data/catalog";
 import Image from "next/image";
+import { OpenNow } from "@/components/OpenNow";
+import { StoreJsonLd } from "@/components/JsonLd";
 import { Comparison, Faq, HowItsMade, OilGuide } from "@/components/HomeSections";
 import { ProductCard } from "@/components/ProductCard";
 import { WaIcon } from "@/components/OrderDrawer";
@@ -12,6 +14,7 @@ export default function Home() {
 
   return (
     <>
+      <StoreJsonLd />
       {/* Hero */}
       <section className="relative overflow-hidden bg-[var(--leaf)] text-[var(--rice)]">
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-10 pt-12 sm:px-6 md:grid-cols-[1.15fr_1fr] md:pb-16 md:pt-20">
@@ -127,7 +130,10 @@ export default function Home() {
           <div className="p-6 sm:p-8">
             <p className="font-display text-2xl">{site.name}</p>
             <p className="mt-3 text-[var(--muted)]">{site.address}</p>
-            <p className="mt-3 font-semibold">{site.hours}</p>
+            <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-semibold">
+              {site.hours}
+              <OpenNow />
+            </p>
             <div className="mt-6 flex flex-wrap gap-2">
               <a href={site.mapsUrl} target="_blank" rel="noopener" className="rounded-full bg-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--rice)] hover:bg-[var(--leaf-deep)]">
                 Directions

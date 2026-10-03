@@ -9,7 +9,9 @@ export type Category = {
   blurb: string;
 };
 
-export type Variant = { size: string; price: number };
+// mrp: the MRP printed on the bottle label. When it is higher than price, the site
+// shows it struck out with a "% off" badge. Only use the real label MRP.
+export type Variant = { size: string; price: number; mrp?: number };
 
 export type ArtKind = "bottle" | "pouch" | "jar";
 
@@ -177,3 +179,6 @@ export const getProduct = (slug: string) => products.find((p) => p.slug === slug
 export const getCategory = (id: string) => categories.find((c) => c.id === id);
 export const productsIn = (id: CategoryId) => products.filter((p) => p.category === id);
 export const fromPrice = (p: Product) => Math.min(...p.variants.map((v) => v.price));
+export const cheapest = (p: Product) => p.variants.reduce((a, v) => (v.price < a.price ? v : a));
+export const percentOff = (v: Variant) => (v.mrp && v.mrp > v.price ? Math.round((1 - v.price / v.mrp) * 100) : 0);
+export const bestOff = (p: Product) => Math.max(...p.variants.map(percentOff));

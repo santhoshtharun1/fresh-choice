@@ -29,6 +29,10 @@ export function OrderDrawer() {
   }, [open, setOpen]);
 
   const missing = !c.name.trim() || !c.address.trim();
+  const saved = lines.reduce((s, l) => {
+    const v = getProduct(l.slug)?.variants.find((x) => x.size === l.size);
+    return s + (v?.mrp && v.mrp > v.price ? (v.mrp - v.price) * l.qty : 0);
+  }, 0);
 
   const send = () => {
     setTried(true);
@@ -113,6 +117,9 @@ export function OrderDrawer() {
               <span className="font-semibold">Estimated total</span>
               <span className="font-display text-2xl tabular-nums">{rupees(total)}</span>
             </div>
+            {saved > 0 && (
+              <p className="mx-5 mb-2 text-sm font-semibold text-[#177240]">You save {rupees(saved)} on MRP</p>
+            )}
             <p className="mx-5 text-xs text-[var(--muted)]">
               Oil prices follow the market. We&apos;ll confirm the final price on WhatsApp before delivery.
             </p>

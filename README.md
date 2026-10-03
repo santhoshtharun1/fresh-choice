@@ -32,11 +32,21 @@ Product images are SVG illustrations (`src/components/ProductArt.tsx`) until rea
 - [ ] Logo (if Fresh Choice has an official one)
 - [ ] Domain
 
-## Deploy (Vercel)
+## Deploy
 
-1. Push this repo to GitHub.
-2. vercel.com → Add New Project → import the repo → Deploy (no settings needed).
-3. Project → Settings → Domains → add the client's domain and set the DNS records Vercel shows.
+### Vercel
+1. vercel.com → sign in with GitHub → **Add New → Project** → import `fresh-choice` → **Deploy** (settings are detected automatically).
+2. Live at `https://<project-name>.vercel.app`. Rename under **Settings → General → Project Name**, then redeploy.
+3. Every push to `main` goes live; every pull request gets a preview link.
+4. Note: Vercel's free Hobby plan is for non-commercial use. A live shop should be on Pro.
+
+### Netlify
+1. app.netlify.com → **Add new project → Import an existing project → GitHub** → `fresh-choice`, branch `main` → **Deploy**.
+2. **Site configuration → Change site name** (e.g. `freshchoice` → `https://freshchoice.netlify.app`), then trigger a redeploy.
+
+The site's public address (link previews, sitemap, Google data) is read from the host on each build (`VERCEL_PROJECT_PRODUCTION_URL` on Vercel, `URL` on Netlify), so it follows the site's address, including a custom domain. Set `NEXT_PUBLIC_SITE_URL` to override.
+
+**Custom domain later:** in the host's domain settings, add `freshchoicewoodpressed.in` and create the DNS records it shows at the domain registrar. HTTPS is automatic.
 
 ## Roadmap
 

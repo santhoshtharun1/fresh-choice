@@ -4,7 +4,7 @@ import { site } from "@/config/site";
 export type Policy = { slug: string; title: string; intro: string; sections: { heading: string; body: string[] }[] };
 
 const r = site.freeDeliveryRadiusKm;
-const contact = `WhatsApp or call us on ${site.phoneDisplay} (${site.hours.toLowerCase()}).`;
+const contact = `WhatsApp or call us on ${site.phoneDisplay} (${site.hours}).`;
 
 export const policies: Policy[] = [
   {
