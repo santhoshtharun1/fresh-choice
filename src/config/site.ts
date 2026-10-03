@@ -9,13 +9,23 @@ export const site = {
   phoneDisplay: "+91 97319 39909",
   address:
     "176, 7th Cross Rd, near Ganesha Temple Road, Gopal Nagar, Nelgadernhalli, Nagasandra, Bengaluru, Karnataka 560073",
+  // Same address split up for Google's structured data
+  postal: {
+    streetAddress: "176, 7th Cross Rd, near Ganesha Temple Road, Gopal Nagar, Nelgadernhalli, Nagasandra",
+    addressLocality: "Bengaluru",
+    addressRegion: "Karnataka",
+    postalCode: "560073",
+    addressCountry: "IN",
+  },
   // Shown on the store card and used for the embedded map
   mapsQuery: "Fresh Choice, 176, 7th Cross Rd, Gopal Nagar, Nagasandra, Bengaluru 560073",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Fresh+Choice+176+7th+Cross+Rd+Gopal+Nagar+Nagasandra+Bengaluru+560073",
   freeDeliveryRadiusKm: 3,
   fssai: "FSSAI Lic. No. 11224315000120",
-  hours: "Open all 7 days, 9 am – 9 pm",
+  hours: "Open daily · 9 AM – 9 PM",
+  // 24h clock, Bengaluru time; drives the live "Open now" badge
+  openHours: { open: 9, close: 21 },
   // Developer credit in the footer. Add a url (WhatsApp, LinkedIn, portfolio) to make it a link.
   credit: { name: "Santhosh Tharun", url: "" },
 } as const;
