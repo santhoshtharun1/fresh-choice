@@ -13,8 +13,9 @@ export const site = {
     "https://freshchoicewoodpressed.in"
   ).replace(/\/$/, ""),
   // WhatsApp number in international format, digits only (91 + 10-digit mobile)
+  // PILOT: test number. Switch back to the client's 919731939909 / "+91 97319 39909" before launch.
   whatsapp: "917530000840",
-  phoneDisplay: "+91 9731939909",
+  phoneDisplay: "+91 75300 00840",
   address:
     "176, 7th Cross Rd, near Ganesha Temple Road, Gopal Nagar, Nelgadernhalli, Nagasandra, Bengaluru, Karnataka 560073",
   // Same address split up for Google's structured data
