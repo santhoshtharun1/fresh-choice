@@ -16,4 +16,6 @@ export const site = {
   freeDeliveryRadiusKm: 3,
   fssai: "FSSAI Lic. No. 11224315000120",
   hours: "Open all 7 days, 9 am – 9 pm",
+  // Developer credit in the footer. Add a url (WhatsApp, LinkedIn, portfolio) to make it a link.
+  credit: { name: "Santhosh Tharun", url: "" },
 } as const;
