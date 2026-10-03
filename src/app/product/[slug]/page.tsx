@@ -5,6 +5,7 @@ import { getCategory, getProduct, products } from "@/data/catalog";
 import { ProductArt } from "@/components/ProductArt";
 import { ProductCard } from "@/components/ProductCard";
 import { BuyBox } from "@/components/BuyBox";
+import { ProductJsonLd } from "@/components/JsonLd";
 
 export const dynamicParams = false;
 
@@ -27,6 +28,7 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
 
   return (
     <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
+      <ProductJsonLd product={p} />
       <nav aria-label="Breadcrumb" className="text-sm text-[var(--muted)]">
         <Link href="/shop" className="hover:underline">Shop</Link>
         <span className="mx-2" aria-hidden>/</span>

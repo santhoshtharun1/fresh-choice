@@ -3,6 +3,7 @@ import { site } from "@/config/site";
 import { products } from "@/data/catalog";
 import Image from "next/image";
 import { OpenNow } from "@/components/OpenNow";
+import { StoreJsonLd } from "@/components/JsonLd";
 import { Comparison, Faq, HowItsMade, OilGuide } from "@/components/HomeSections";
 import { ProductCard } from "@/components/ProductCard";
 import { WaIcon } from "@/components/OrderDrawer";
@@ -13,6 +14,7 @@ export default function Home() {
 
   return (
     <>
+      <StoreJsonLd />
       {/* Hero */}
       <section className="relative overflow-hidden bg-[var(--leaf)] text-[var(--rice)]">
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-10 pt-12 sm:px-6 md:grid-cols-[1.15fr_1fr] md:pb-16 md:pt-20">
