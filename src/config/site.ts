@@ -15,7 +15,9 @@ export const site = {
     "https://www.google.com/maps/search/?api=1&query=Fresh+Choice+176+7th+Cross+Rd+Gopal+Nagar+Nagasandra+Bengaluru+560073",
   freeDeliveryRadiusKm: 3,
   fssai: "FSSAI Lic. No. 11224315000120",
-  hours: "Open all 7 days, 9 am – 9 pm",
+  hours: "Open daily · 9 AM – 9 PM",
+  // 24h clock, Bengaluru time; drives the live "Open now" badge
+  openHours: { open: 9, close: 21 },
   // Developer credit in the footer. Add a url (WhatsApp, LinkedIn, portfolio) to make it a link.
   credit: { name: "Santhosh Tharun", url: "" },
 } as const;
