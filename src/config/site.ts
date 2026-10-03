@@ -3,7 +3,10 @@ export const site = {
   name: "Fresh Choice",
   partner: "Sai Sangama Sales Corporation",
   tagline: "Wood-pressed oils, delivered across Bengaluru",
-  url: "https://freshchoicewoodpressed.in",
+  // Public address used for link previews, sitemap and Google data. Netlify sets URL to the
+  // site's live address on every build (e.g. https://freshchoice.netlify.app, or the custom
+  // domain once connected). NEXT_PUBLIC_SITE_URL overrides it on other hosts.
+  url: (process.env.NEXT_PUBLIC_SITE_URL || process.env.URL || "https://freshchoicewoodpressed.in").replace(/\/$/, ""),
   // WhatsApp number in international format, digits only (91 + 10-digit mobile)
   whatsapp: "919731939909",
   phoneDisplay: "+91 97319 39909",
