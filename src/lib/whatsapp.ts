@@ -38,8 +38,8 @@ export function orderMessage(lines: OrderLine[], c: Customer, ref: string) {
     .join("\n");
   const delivery =
     c.delivery === "near"
-      ? `Within ${site.freeDeliveryRadiusKm} km – free doorstep delivery`
-      : `Beyond ${site.freeDeliveryRadiusKm} km – delivery by your delivery partner (I'll pay the delivery charges)`;
+      ? `Within ${site.freeDeliveryRadiusKm} km – Free home delivery`
+      : `Beyond ${site.freeDeliveryRadiusKm} km – Via delivery partner (delivery charges paid by customer)`;
   const payment = paysCod(c)
     ? "Cash on delivery"
     : "UPI – please send the UPI details on WhatsApp";
