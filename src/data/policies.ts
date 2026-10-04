@@ -15,15 +15,16 @@ export const policies: Policy[] = [
       {
         heading: "What we collect",
         body: [
-          "We don't ask you to create an account. When you send an order or a bulk enquiry, the website opens WhatsApp with a message containing your name, phone number (if you add it), delivery address and the products you chose. We only receive this when you press send in WhatsApp.",
+          "We don't ask you to create an account. When you send an order or a bulk enquiry, the website opens WhatsApp with a message containing your name, phone number, delivery address (or area, for bulk enquiries) and the products you chose.",
+          "At the same moment, the website saves these details with your order reference in our private order records, so we can confirm and deliver your order and follow up if the WhatsApp message doesn't reach us. Only the Fresh Choice team can see them.",
           "Your order list is saved in your own browser on this device so it is still there when you come back. It is not sent to us until you send the order.",
-          "We count visits and button taps (for example, how many orders are sent from the site) using a privacy-friendly analytics tool and our own private records. Neither uses cookies or records your name, phone number or address.",
+          "We also count visits and button taps (for example, how many people open the site) using a privacy-friendly analytics tool that does not use cookies and does not record your name, phone number or address.",
         ],
       },
       {
         heading: "How we use it",
         body: [
-          "We use your details only to confirm, pack and deliver your order, and to contact you about it.",
+          "We use your details only to confirm, pack and deliver your order, and to contact you about it. We don't use them for advertising.",
           "To deliver your order, we share your name, phone number and address with our delivery partner. We don't sell or share your details with anyone else.",
         ],
       },

@@ -57,7 +57,7 @@ export function OrderDrawer() {
       total,
       delivery: c.delivery === "near" ? "within 3 km" : "beyond 3 km",
       payment: c.delivery === "near" && c.payment === "cod" ? "COD" : "UPI",
-    });
+    }, { name: c.name.trim(), phone: (() => { const d = cleanPhone(c.phone); return d ? `+91 ${d.slice(0, 5)} ${d.slice(5)}` : c.phone; })(), address: c.address.trim() });
     window.open(waLink(msg), "_blank", "noopener");
   };
 
@@ -198,6 +198,10 @@ export function OrderDrawer() {
               <button type="submit" className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#1E8E4E] font-semibold text-white hover:bg-[#177240]">
                 <WaIcon className="size-5" /> Send order on WhatsApp
               </button>
+              <p className="text-center text-xs text-[var(--muted)]">
+                Your details are saved with your order so we can confirm and deliver it.{" "}
+                <Link href="/policies/privacy-policy" onClick={() => setOpen(false)} className="underline underline-offset-2">Privacy policy</Link>
+              </p>
               <button type="button" onClick={clear} className="w-full text-sm text-[var(--muted)] underline underline-offset-4">
                 Clear list
               </button>

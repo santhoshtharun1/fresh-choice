@@ -1,7 +1,8 @@
 /**
  * Fresh Choice – website log
  * Paste into the Google Sheet: Extensions → Apps Script. Setup steps are in the README.
- * Rows arrive from the website's /api/log route. No customer names, phones or addresses.
+ * Rows arrive from the website's /api/log route. Orders and bulk quotes include the customer's
+ * name, phone and address: keep this sheet shared only with the team.
  */
 
 // Must match SHEET_WEBHOOK_TOKEN in Vercel exactly.
@@ -19,8 +20,8 @@ const LABELS = {
 const TABS = {
   Enquiries: {
     events: Object.keys(LABELS),
-    headers: ['Time', 'Type', 'Ref', 'Products', 'Size', 'Qty / items', 'Total (₹)', 'Delivery', 'Payment', 'Tapped from / type', 'Page', 'Device'],
-    row: (r, t) => [t, LABELS[r.event], r.ref, r.products, r.size, r.qty, r.total, r.delivery, r.payment, r.from, r.page, r.device],
+    headers: ['Time', 'Type', 'Ref', 'Products', 'Size', 'Qty / items', 'Total (₹)', 'Delivery', 'Payment', 'Tapped from / type', 'Page', 'Device', 'Customer name', 'Phone', 'Address / area', 'Business'],
+    row: (r, t) => [t, LABELS[r.event], r.ref, r.products, r.size, r.qty, r.total, r.delivery, r.payment, r.from, r.page, r.device, r.name, r.phone, r.address, r.business],
   },
   Visits: {
     events: ['visit'],
@@ -57,9 +58,16 @@ function doPost(e) {
   return reply('ok');
 }
 
-// Run once from the editor (select "setup" → Run) to create the tabs and the Summary.
+// Run from the editor (select "setup" → Run) to create the tabs and the Summary.
+// Safe to run again after updating this script: it refreshes the header rows, keeps all data.
 function setup() {
-  Object.keys(TABS).forEach((name) => sheet(name, TABS[name].headers));
+  Object.keys(TABS).forEach((name) => {
+    const headers = TABS[name].headers;
+    const sh = sheet(name, headers);
+    sh.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight('bold');
+  });
+  // Keep phone numbers as text so Sheets doesn't turn them into numbers
+  sheet('Enquiries', TABS.Enquiries.headers).getRange('N:N').setNumberFormat('@');
   const ss = SpreadsheetApp.getActive();
   const s = ss.getSheetByName('Summary') || ss.insertSheet('Summary', 0);
   s.clear();
