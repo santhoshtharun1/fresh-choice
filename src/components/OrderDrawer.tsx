@@ -147,14 +147,14 @@ export function OrderDrawer() {
                     checked={c.delivery === "near"}
                     onChange={() => setC({ ...c, delivery: "near" })}
                     title={`Within ${site.freeDeliveryRadiusKm} km`}
-                    note="Our team delivers to your door. Pay cash on delivery or UPI."
+                    note="Free doorstep delivery by our delivery partner. Pay cash on delivery or UPI."
                   />
                   <Choice
                     name="delivery"
                     checked={c.delivery === "far"}
                     onChange={() => setC({ ...c, delivery: "far" })}
                     title={`More than ${site.freeDeliveryRadiusKm} km`}
-                    note="We send it by Rapido parcel. Pay by UPI on WhatsApp before dispatch, plus the Rapido fare."
+                    note="Delivered by our delivery partner. Delivery charges are extra and we'll share them on WhatsApp. Pay by UPI before dispatch."
                   />
                 </div>
               </fieldset>
