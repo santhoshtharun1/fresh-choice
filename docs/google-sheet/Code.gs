@@ -51,7 +51,7 @@ function doPost(e) {
     const now = new Date();
     Object.keys(TABS).forEach((name) => {
       const tab = TABS[name];
-      if (tab.events.indexOf(r.event) !== -1) sheet(name, tab.headers).appendRow(tab.row(r, now));
+      if (tab.events.indexOf(r.event) !== -1) sheet(name, tab.headers).appendRow(tab.row(r, now).map(asText));
     });
   } finally {
     lock.releaseLock();
@@ -106,6 +106,12 @@ function sheet(name, headers) {
     sh.getRange('A:A').setNumberFormat('dd-mmm-yyyy hh:mm');
   }
   return sh;
+}
+
+// Text from the website is stored as plain text. Without this, a phone like "+91 98765 43210"
+// shows #ERROR!, and a name or address starting with = + - @ would run as a spreadsheet formula.
+function asText(v) {
+  return typeof v === 'string' && /^[=+\-@]/.test(v) ? "'" + v : v;
 }
 
 function reply(text) {
