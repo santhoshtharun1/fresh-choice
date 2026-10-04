@@ -1,6 +1,7 @@
 // Visitor and enquiry tracking: Umami (dashboard) and our private Google Sheet (via /api/log).
 // Each is inactive until its env vars are set.
-// Never send customer names, phone numbers or addresses here: only counts, refs and totals.
+// Umami never gets customer names, phones or addresses. The private Google Sheet gets them only for
+// orders and bulk quotes (the `contact` argument), so the shop can see who enquired.
 
 type EventData = Record<string, string | number>;
 
@@ -10,19 +11,22 @@ declare global {
   }
 }
 
-export function track(event: string, data?: EventData) {
+export type Contact = { name?: string; phone?: string; address?: string; business?: string };
+
+export function track(event: string, data?: EventData, contact?: Contact) {
   try {
     window.umami?.track(event, data);
   } catch {}
-  logToSheet(event, data);
+  logToSheet(event, data, contact);
 }
 
 // Sends one row to the private Google Sheet. sendBeacon survives the page switching to WhatsApp.
-export function logToSheet(event: string, data?: EventData) {
+export function logToSheet(event: string, data?: EventData, contact?: Contact) {
   try {
     const body = JSON.stringify({
       event,
       data,
+      contact,
       page: location.pathname,
       referrer: document.referrer && new URL(document.referrer).host !== location.host ? document.referrer : "",
       device: /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop",

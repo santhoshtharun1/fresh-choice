@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { site } from "@/config/site";
 import { waLink } from "@/lib/whatsapp";
@@ -34,7 +35,7 @@ export function BulkForm() {
       "",
       `Ref: ${ref} (sent from the website)`,
     ].filter((l) => l !== false && l !== undefined).join("\n");
-    track("bulk_quote_sent", { ref, type: f.type, frequency: f.frequency });
+    track("bulk_quote_sent", { ref, type: f.type, frequency: f.frequency }, { name: f.name.trim(), business: f.business.trim(), address: f.area.trim() });
     window.open(waLink(msg), "_blank", "noopener");
   };
 
@@ -89,6 +90,10 @@ export function BulkForm() {
       <button type="submit" className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#1E8E4E] font-semibold text-white hover:bg-[#177240]">
         <WaIcon className="size-5" /> Send quote request on WhatsApp
       </button>
+      <p className="text-center text-xs text-[var(--muted)]">
+        Your details are saved with your request so we can reply with a quote.{" "}
+        <Link href="/policies/privacy-policy" className="underline underline-offset-2">Privacy policy</Link>
+      </p>
     </form>
   );
 }

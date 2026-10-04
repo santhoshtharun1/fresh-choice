@@ -91,7 +91,7 @@ export default function Home() {
             ["We confirm and deliver", "We reply with the final price and our delivery partner brings it to your door."],
           ].map(([t, d], i) => (
             <li key={t} className="flex gap-4">
-              <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[var(--oil)] font-display text-xl">{i + 1}</span>
+              <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[var(--oil)] text-lg font-bold">{i + 1}</span>
               <div>
                 <h3 className="text-lg font-semibold">{t}</h3>
                 <p className="mt-1 text-[var(--muted)]">{d}</p>

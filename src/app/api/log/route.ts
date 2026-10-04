@@ -3,7 +3,7 @@ import { after, type NextRequest } from "next/server";
 // Receives enquiry/visit events from the site and forwards them to a private Google Sheet
 // (Apps Script web app, see docs/google-sheet/Code.gs). The sheet URL and token live only in
 // server env vars, so visitors can't see or write to the sheet directly.
-// No customer names, phone numbers or addresses are ever sent.
+// Customer contact details are passed on only for orders and bulk quotes (see CONTACT_EVENTS).
 
 const EVENTS = new Set([
   "visit",
@@ -15,6 +15,9 @@ const EVENTS = new Set([
   "call_click",
   "directions_click",
 ]);
+
+// Only these events may carry the customer's name, phone and address
+const CONTACT_EVENTS = new Set(["order_sent", "bulk_quote_sent"]);
 
 const text = (v: unknown, max = 200) => (v === undefined || v === null ? "" : String(v).slice(0, max));
 const num = (v: unknown) => (typeof v === "number" && Number.isFinite(v) ? v : "");
@@ -38,7 +41,14 @@ export async function POST(request: NextRequest) {
   if (!hook || !token || request.headers.get("host") !== liveHost()) return noContent();
   if (Number(request.headers.get("content-length") ?? 0) > 4000) return new Response(null, { status: 413 });
 
-  let body: { event?: unknown; data?: Record<string, unknown>; page?: unknown; referrer?: unknown; device?: unknown };
+  let body: {
+    event?: unknown;
+    data?: Record<string, unknown>;
+    contact?: Record<string, unknown>;
+    page?: unknown;
+    referrer?: unknown;
+    device?: unknown;
+  };
   try {
     body = await request.json();
   } catch {
@@ -47,6 +57,7 @@ export async function POST(request: NextRequest) {
   if (typeof body.event !== "string" || !EVENTS.has(body.event)) return new Response(null, { status: 400 });
 
   const d = body.data && typeof body.data === "object" ? body.data : {};
+  const c = CONTACT_EVENTS.has(body.event) && body.contact && typeof body.contact === "object" ? body.contact : {};
   const row = {
     token,
     event: body.event,
@@ -61,6 +72,10 @@ export async function POST(request: NextRequest) {
     page: text(body.page, 200),
     referrer: text(body.referrer, 200),
     device: text(body.device, 20),
+    name: text(c.name, 80),
+    phone: text(c.phone, 20),
+    address: text(c.address, 300),
+    business: text(c.business, 80),
   };
 
   after(() =>

@@ -1,7 +1,8 @@
 /**
  * Fresh Choice – website log
  * Paste into the Google Sheet: Extensions → Apps Script. Setup steps are in the README.
- * Rows arrive from the website's /api/log route. No customer names, phones or addresses.
+ * Rows arrive from the website's /api/log route. Orders and bulk quotes include the customer's
+ * name, phone and address: keep this sheet shared only with the team.
  */
 
 // Must match SHEET_WEBHOOK_TOKEN in Vercel exactly.
@@ -19,8 +20,9 @@ const LABELS = {
 const TABS = {
   Enquiries: {
     events: Object.keys(LABELS),
-    headers: ['Time', 'Type', 'Ref', 'Products', 'Size', 'Qty / items', 'Total (₹)', 'Delivery', 'Payment', 'Tapped from / type', 'Page', 'Device'],
-    row: (r, t) => [t, LABELS[r.event], r.ref, r.products, r.size, r.qty, r.total, r.delivery, r.payment, r.from, r.page, r.device],
+    // Customer columns come right after Ref (D–G); Total is column K (used by the Summary)
+    headers: ['Time', 'Type', 'Ref', 'Customer name', 'Phone', 'Address / area', 'Business', 'Products', 'Size', 'Qty / items', 'Total (₹)', 'Delivery', 'Payment', 'Tapped from / type', 'Page', 'Device'],
+    row: (r, t) => [t, LABELS[r.event], r.ref, r.name, r.phone, r.address, r.business, r.products, r.size, r.qty, r.total, r.delivery, r.payment, r.from, r.page, r.device],
   },
   Visits: {
     events: ['visit'],
@@ -57,9 +59,21 @@ function doPost(e) {
   return reply('ok');
 }
 
-// Run once from the editor (select "setup" → Run) to create the tabs and the Summary.
+// Run from the editor (select "setup" → Run) to create the tabs and the Summary.
+// Safe to run again after updating this script: it refreshes the header rows, keeps all data.
 function setup() {
-  Object.keys(TABS).forEach((name) => sheet(name, TABS[name].headers));
+  // Older versions put the customer columns at the end (M–P): move them, with their data, to D–G
+  const enq = SpreadsheetApp.getActive().getSheetByName('Enquiries');
+  if (enq && enq.getLastColumn() >= 13 && enq.getRange(1, 13).getValue() === 'Customer name') {
+    enq.moveColumns(enq.getRange('M:P'), 4);
+  }
+  Object.keys(TABS).forEach((name) => {
+    const headers = TABS[name].headers;
+    const sh = sheet(name, headers);
+    sh.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight('bold');
+  });
+  // Keep phone numbers as text so Sheets doesn't turn them into numbers
+  sheet('Enquiries', TABS.Enquiries.headers).getRange('E:E').setNumberFormat('@');
   const ss = SpreadsheetApp.getActive();
   const s = ss.getSheetByName('Summary') || ss.insertSheet('Summary', 0);
   s.clear();
@@ -68,7 +82,7 @@ function setup() {
     ['', 'Today', 'Last 7 days', 'All time'],
     ['Visits', '=COUNTIFS(Visits!A2:A,">="&TODAY())', '=COUNTIFS(Visits!A2:A,">="&TODAY()-6)', '=COUNTA(Visits!A2:A)'],
     ['Orders sent', `=${type('Order')},Enquiries!A2:A,">="&TODAY())`, `=${type('Order')},Enquiries!A2:A,">="&TODAY()-6)`, `=${type('Order')})`],
-    ['Order value (₹)', '=SUMIFS(Enquiries!G2:G,Enquiries!B2:B,"Order",Enquiries!A2:A,">="&TODAY())', '=SUMIFS(Enquiries!G2:G,Enquiries!B2:B,"Order",Enquiries!A2:A,">="&TODAY()-6)', '=SUMIFS(Enquiries!G2:G,Enquiries!B2:B,"Order")'],
+    ['Order value (₹)', '=SUMIFS(Enquiries!K2:K,Enquiries!B2:B,"Order",Enquiries!A2:A,">="&TODAY())', '=SUMIFS(Enquiries!K2:K,Enquiries!B2:B,"Order",Enquiries!A2:A,">="&TODAY()-6)', '=SUMIFS(Enquiries!K2:K,Enquiries!B2:B,"Order")'],
     ['Quick orders', `=${type('Quick order')},Enquiries!A2:A,">="&TODAY())`, `=${type('Quick order')},Enquiries!A2:A,">="&TODAY()-6)`, `=${type('Quick order')})`],
     ['Bulk quotes', `=${type('Bulk quote')},Enquiries!A2:A,">="&TODAY())`, `=${type('Bulk quote')},Enquiries!A2:A,">="&TODAY()-6)`, `=${type('Bulk quote')})`],
     ['WhatsApp chats', `=${type('WhatsApp chat')},Enquiries!A2:A,">="&TODAY())`, `=${type('WhatsApp chat')},Enquiries!A2:A,">="&TODAY()-6)`, `=${type('WhatsApp chat')})`],
