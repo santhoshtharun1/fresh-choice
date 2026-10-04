@@ -11,7 +11,7 @@ export function WhatsAppFab() {
   if (open) return null;
   return (
     <a
-      href={waLink(`Hi ${site.name}, I have a question.`)}
+      href={waLink(`Hi ${site.name}, I'd like to place an order.`)}
       data-umami-event="whatsapp_chat"
       data-umami-event-from="floating button"
       target="_blank"
