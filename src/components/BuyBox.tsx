@@ -47,10 +47,10 @@ export function BuyBox({ product }: { product: Product }) {
           {off > 0 && (
             <p className="text-sm tabular-nums">
               <s className="text-[var(--muted)]">{rupees(variant.mrp! * qty)}</s>{" "}
-              <span className="font-bold text-[#A3361F]">{off}% off</span>
+              <span className="ml-1 rounded-md bg-[#1E8E4E] px-2 py-0.5 text-xs font-extrabold uppercase tracking-wide text-white">{off}% off</span>
             </p>
           )}
-          <p className="font-display text-3xl tabular-nums">{rupees(price * qty)}</p>
+          <p className="text-3xl font-bold tabular-nums tracking-tight">{rupees(price * qty)}</p>
         </div>
       </div>
 

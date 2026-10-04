@@ -75,7 +75,13 @@ recorded in Umami, so website orders can be matched one-to-one with the shop's W
 
 Every visit, add-to-list, order, quick order, bulk quote and WhatsApp/Call/Directions tap on the live
 site becomes a row in a private Google Sheet (tabs: Summary, Enquiries, Visits, Added to list).
-No customer names, phones or addresses. Off until the two env vars below are set.
+Orders and bulk quotes also record the customer's name, phone and address/area (as the privacy
+policy says); everything else is anonymous, and Umami never gets personal details. Share the sheet
+only with the team. Off until the two env vars below are set.
+
+**Updating the script later:** paste the new `Code.gs` (keep your TOKEN line), Save, run `setup` once
+(it updates the header rows and keeps all data), then **Deploy → Manage deployments → ✏️ Edit →
+Version: New version → Deploy**. The web app URL stays the same, so Vercel needs no change.
 
 1. Create a Google Sheet, e.g. "Fresh Choice – Website log". **File → Settings → Time zone → (GMT+05:30) India**.
 2. **Extensions → Apps Script** → replace the code with `docs/google-sheet/Code.gs` → set `TOKEN` to a long random secret → **Save**.
