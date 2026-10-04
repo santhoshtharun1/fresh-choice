@@ -20,6 +20,7 @@ const storeLd = {
   telephone: `+${site.whatsapp}`,
   address: { "@type": "PostalAddress", ...site.postal },
   hasMap: site.mapsUrl,
+  geo: { "@type": "GeoCoordinates", latitude: site.geo.lat, longitude: site.geo.lng },
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",

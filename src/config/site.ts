@@ -26,10 +26,10 @@ export const site = {
     postalCode: "560073",
     addressCountry: "IN",
   },
-  // Shown on the store card and used for the embedded map
-  mapsQuery: "Fresh Choice, 176, 7th Cross Rd, Gopal Nagar, Nagasandra, Bengaluru 560073",
-  mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Fresh+Choice+176+7th+Cross+Rd+Gopal+Nagar+Nagasandra+Bengaluru+560073",
+  // Exact store location (from a pin dropped on the store in Google Maps)
+  geo: { lat: 13.031371, lng: 77.498576 },
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=13.031371,77.498576",
+  directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=13.031371,77.498576",
   freeDeliveryRadiusKm: 3,
   fssai: "FSSAI Lic. No. 11224315000120",
   hours: "Open daily · 9 AM – 9 PM",
