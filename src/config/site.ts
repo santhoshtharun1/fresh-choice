@@ -26,10 +26,11 @@ export const site = {
     postalCode: "560073",
     addressCountry: "IN",
   },
-  // Exact store location (from a pin dropped on the store in Google Maps)
-  geo: { lat: 13.031371, lng: 77.498576 },
-  mapsUrl: "https://www.google.com/maps/search/?api=1&query=13.031371,77.498576",
-  directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=13.031371,77.498576",
+  // The shop's Google Maps listing ("Saisangama Salcecorporation"): its coordinates and Google ID (cid)
+  geo: { lat: 13.0313525, lng: 77.4986379 },
+  mapsPlaceName: "Saisangama Salcecorporation",
+  mapsUrl: "https://maps.google.com/?cid=5497943296574528958",
+  directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=13.0313525,77.4986379",
   freeDeliveryRadiusKm: 3,
   fssai: "FSSAI Lic. No. 11224315000120",
   hours: "Open daily · 9 AM – 9 PM",

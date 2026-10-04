@@ -157,7 +157,7 @@ export default function Home() {
           </div>
           <iframe
             title={`Map to ${site.name}`}
-            src={`https://www.google.com/maps?q=${site.geo.lat},${site.geo.lng}&z=17&output=embed`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(site.mapsPlaceName)}&ll=${site.geo.lat},${site.geo.lng}&z=18&output=embed`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             className="h-72 w-full border-0 md:h-full md:min-h-80"
