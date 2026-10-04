@@ -26,15 +26,20 @@ export const site = {
     postalCode: "560073",
     addressCountry: "IN",
   },
-  // Shown on the store card and used for the embedded map
-  mapsQuery: "Fresh Choice, 176, 7th Cross Rd, Gopal Nagar, Nagasandra, Bengaluru 560073",
-  mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Fresh+Choice+176+7th+Cross+Rd+Gopal+Nagar+Nagasandra+Bengaluru+560073",
+  // The shop's Google Maps listing ("Saisangama Salcecorporation"): its coordinates and Google ID (cid)
+  geo: { lat: 13.0313525, lng: 77.4986379 },
+  mapsCid: "5497943296574528958",
+  mapsUrl: "https://maps.google.com/?cid=5497943296574528958",
+  directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=13.0313525,77.4986379",
   freeDeliveryRadiusKm: 3,
   fssai: "FSSAI Lic. No. 11224315000120",
   hours: "Open daily · 9 AM – 9 PM",
   // 24h clock, Bengaluru time; drives the live "Open now" badge
   openHours: { open: 9, close: 21 },
+  // Every size shows a struck-out price with this "% off". The selling price never changes:
+  // struck-out price = price ÷ (1 − discount), so 10% off it lands exactly on today's price.
+  // Set to 0 to turn the offer display off.
+  discountPercent: 10,
   // Developer credit in the footer. Add a url (WhatsApp, LinkedIn, portfolio) to make it a link.
   credit: { name: "Mithra-Sankalp Software Solutions", url: "" },
 } as const;

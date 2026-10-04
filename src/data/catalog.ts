@@ -1,3 +1,4 @@
+import { site } from "@/config/site";
 // Phase 1: catalog lives in code. Phase 2 moves this to Supabase + admin panel.
 
 export type CategoryId = "oils";
@@ -9,8 +10,8 @@ export type Category = {
   blurb: string;
 };
 
-// mrp: the MRP printed on the bottle label. When it is higher than price, the site
-// shows it struck out with a "% off" badge. Only use the real label MRP.
+// mrp: the struck-out price. Usually left out: it is worked out from site.discountPercent
+// (see `products` below). Set it on a size only to override that.
 export type Variant = { size: string; price: number; mrp?: number };
 
 export type ArtKind = "bottle" | "pouch" | "jar";
@@ -39,7 +40,7 @@ export const categories: Category[] = [
   },
 ];
 
-export const products: Product[] = [
+const baseProducts: Product[] = [
   {
     slug: "groundnut-oil",
     name: "Groundnut oil",
@@ -174,6 +175,13 @@ export const products: Product[] = [
     photo: "/products/deepam-oil.webp",
   },
 ];
+
+// Fill in the struck-out price for every size from the store-wide discount; selling prices stay as above.
+const off = site.discountPercent / 100;
+export const products: Product[] = baseProducts.map((p) => ({
+  ...p,
+  variants: p.variants.map((v) => ({ ...v, mrp: v.mrp ?? (off > 0 ? Math.round(v.price / (1 - off)) : undefined) })),
+}));
 
 export const getProduct = (slug: string) => products.find((p) => p.slug === slug);
 export const getCategory = (id: string) => categories.find((c) => c.id === id);

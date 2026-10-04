@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { site } from "@/config/site";
 import { categories, productsIn } from "@/data/catalog";
@@ -19,6 +20,14 @@ const nav = [
 export function Header() {
   const { count, setOpen, lastAdded } = useOrder();
   const path = usePathname();
+  // Shop menu: opens on hover or keyboard focus, closes on click, page change or Esc
+  const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = () => {
+    setMenuOpen(false);
+    (document.activeElement as HTMLElement | null)?.blur();
+  };
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- close the menu after navigating
+  useEffect(() => setMenuOpen(false), [path]);
 
   return (
     <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[var(--rice)]/90 backdrop-blur">
@@ -44,12 +53,20 @@ export function Header() {
             if (n.href !== "/shop") return link;
             // Shop opens a list of every oil on hover or keyboard focus
             return (
-              <div key={n.href} className="group relative flex items-center gap-1">
+              <div
+                key={n.href}
+                className="relative flex items-center gap-1"
+                onMouseEnter={() => setMenuOpen(true)}
+                onMouseLeave={() => setMenuOpen(false)}
+                onFocus={() => setMenuOpen(true)}
+                onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setMenuOpen(false)}
+                onKeyDown={(e) => e.key === "Escape" && closeMenu()}
+              >
                 {link}
-                <svg className="size-3 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" viewBox="0 0 12 12" aria-hidden>
+                <svg className={`size-3 transition-transform ${menuOpen ? "rotate-180" : ""}`} viewBox="0 0 12 12" aria-hidden>
                   <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" fill="none" />
                 </svg>
-                <div className="invisible absolute left-0 top-full pt-3 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                <div className={`absolute left-0 top-full pt-3 transition-opacity ${menuOpen ? "visible opacity-100" : "invisible opacity-0"}`}>
                   {/* One column per category; a new category (e.g. ghee) adds a column automatically */}
                   <div className="rounded-2xl border border-[var(--line)] bg-white p-2 shadow-xl">
                     <div className="flex">
@@ -57,14 +74,14 @@ export function Header() {
                         const items = productsIn(c.id);
                         return (
                           <div key={c.id} className="w-64">
-                            <Link href={`/shop/${c.id}`} className="block rounded-xl px-3 py-2 hover:bg-[var(--card)]">
+                            <Link onClick={closeMenu} href={`/shop/${c.id}`} className="block rounded-xl px-3 py-2 hover:bg-[var(--card)]">
                               <span className="block font-semibold text-[var(--leaf)]">{c.name}</span>
                               <span lang="kn" className="block font-kannada text-xs text-[var(--wood)]">{c.kannada}</span>
                             </Link>
                             <ul className="mt-1 border-t border-[var(--line)] pt-1" aria-label={c.name}>
                               {items.slice(0, MENU_LIMIT).map((p) => (
                                 <li key={p.slug}>
-                                  <Link href={`/product/${p.slug}`} className="flex items-baseline justify-between gap-3 rounded-xl px-3 py-1.5 text-[0.95rem] hover:bg-[var(--card)]">
+                                  <Link onClick={closeMenu} href={`/product/${p.slug}`} className="flex items-baseline justify-between gap-3 rounded-xl px-3 py-1.5 text-[0.95rem] hover:bg-[var(--card)]">
                                     <span>{p.name}</span>
                                     <span lang="kn" className="font-kannada text-xs text-[var(--muted)]">{p.kannada}</span>
                                   </Link>
@@ -72,7 +89,7 @@ export function Header() {
                               ))}
                               {items.length > MENU_LIMIT && (
                                 <li>
-                                  <Link href={`/shop/${c.id}`} className="block rounded-xl px-3 py-1.5 text-sm font-semibold text-[var(--leaf)] hover:bg-[var(--card)]">
+                                  <Link onClick={closeMenu} href={`/shop/${c.id}`} className="block rounded-xl px-3 py-1.5 text-sm font-semibold text-[var(--leaf)] hover:bg-[var(--card)]">
                                     View all {items.length} →
                                   </Link>
                                 </li>
@@ -83,7 +100,7 @@ export function Header() {
                       })}
                     </div>
                     {categories.length > 1 && (
-                      <Link href="/shop" className="mt-1 block rounded-xl border-t border-[var(--line)] px-3 py-2 font-semibold text-[var(--leaf)] hover:bg-[var(--card)]">
+                      <Link onClick={closeMenu} href="/shop" className="mt-1 block rounded-xl border-t border-[var(--line)] px-3 py-2 font-semibold text-[var(--leaf)] hover:bg-[var(--card)]">
                         All products
                       </Link>
                     )}

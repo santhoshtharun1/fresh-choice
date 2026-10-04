@@ -137,7 +137,7 @@ export default function Home() {
               <OpenNow />
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
-              <a href={site.mapsUrl} target="_blank" rel="noopener" data-umami-event="directions_click" className="rounded-full bg-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--rice)] hover:bg-[var(--leaf-deep)]">
+              <a href={site.directionsUrl} target="_blank" rel="noopener" data-umami-event="directions_click" className="rounded-full bg-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--rice)] hover:bg-[var(--leaf-deep)]">
                 Directions
               </a>
               <a href={`tel:+${site.whatsapp}`} data-umami-event="call_click" data-umami-event-from="store" className="rounded-full border border-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--leaf)] hover:bg-[var(--leaf)]/5">
@@ -157,7 +157,7 @@ export default function Home() {
           </div>
           <iframe
             title={`Map to ${site.name}`}
-            src={`https://www.google.com/maps?q=${encodeURIComponent(site.mapsQuery)}&output=embed`}
+            src={`https://www.google.com/maps?cid=${site.mapsCid}&output=embed`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             className="h-72 w-full border-0 md:h-full md:min-h-80"
