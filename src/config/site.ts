@@ -35,6 +35,10 @@ export const site = {
   hours: "Open daily · 9 AM – 9 PM",
   // 24h clock, Bengaluru time; drives the live "Open now" badge
   openHours: { open: 9, close: 21 },
+  // Every size shows a struck-out price with this "% off". The selling price never changes:
+  // struck-out price = price ÷ (1 − discount), so 10% off it lands exactly on today's price.
+  // Set to 0 to turn the offer display off.
+  discountPercent: 10,
   // Developer credit in the footer. Add a url (WhatsApp, LinkedIn, portfolio) to make it a link.
   credit: { name: "Mithra-Sankalp Software Solutions", url: "" },
 } as const;

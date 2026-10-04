@@ -50,7 +50,7 @@ export function Footer() {
         <div>
           <p className="mb-3 font-semibold">Talk to us</p>
           <ul className="space-y-2 text-[var(--rice)]/80">
-            <li><a href={waLink(`Hi ${site.name}, I have a question.`)} data-umami-event="whatsapp_chat" data-umami-event-from="footer" className="hover:underline" target="_blank" rel="noopener">WhatsApp {site.phoneDisplay}</a></li>
+            <li><a href={waLink(`Hi ${site.name}, I'd like to place an order.`)} data-umami-event="whatsapp_chat" data-umami-event-from="footer" className="hover:underline" target="_blank" rel="noopener">WhatsApp {site.phoneDisplay}</a></li>
             <li><a href={`tel:+${site.whatsapp}`} data-umami-event="call_click" data-umami-event-from="footer" className="hover:underline">Call {site.phoneDisplay}</a></li>
             <li><a href={site.mapsUrl} className="hover:underline" target="_blank" rel="noopener">{site.address}</a></li>
             <li>{site.hours}</li>
