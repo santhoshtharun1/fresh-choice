@@ -9,6 +9,7 @@ import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { StickyOrderBar } from "@/components/StickyOrderBar";
 import { Analytics } from "@/components/Analytics";
+import { SheetLogger } from "@/components/SheetLogger";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <WhatsAppFab />
           <OrderDrawer />
           <Analytics />
+          <SheetLogger />
         </OrderProvider>
       </body>
     </html>

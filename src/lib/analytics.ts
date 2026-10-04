@@ -1,4 +1,5 @@
-// Visitor and enquiry tracking (Umami). Does nothing until NEXT_PUBLIC_UMAMI_WEBSITE_ID is set.
+// Visitor and enquiry tracking: Umami (dashboard) and our private Google Sheet (via /api/log).
+// Each is inactive until its env vars are set.
 // Never send customer names, phone numbers or addresses here: only counts, refs and totals.
 
 type EventData = Record<string, string | number>;
@@ -12,6 +13,24 @@ declare global {
 export function track(event: string, data?: EventData) {
   try {
     window.umami?.track(event, data);
+  } catch {}
+  logToSheet(event, data);
+}
+
+// Sends one row to the private Google Sheet. sendBeacon survives the page switching to WhatsApp.
+export function logToSheet(event: string, data?: EventData) {
+  try {
+    const body = JSON.stringify({
+      event,
+      data,
+      page: location.pathname,
+      referrer: document.referrer && new URL(document.referrer).host !== location.host ? document.referrer : "",
+      device: /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop",
+    });
+    const blob = new Blob([body], { type: "application/json" });
+    if (!navigator.sendBeacon?.("/api/log", blob)) {
+      fetch("/api/log", { method: "POST", body, headers: { "content-type": "application/json" }, keepalive: true }).catch(() => {});
+    }
   } catch {}
 }
 
