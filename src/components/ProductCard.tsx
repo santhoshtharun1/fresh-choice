@@ -16,7 +16,7 @@ export function ProductCard({ product }: { product: Product }) {
       >
         {off > 0 && (
           <span className="absolute left-3 top-3 z-10 rounded-full bg-[#A3361F] px-2.5 py-1 text-xs font-bold text-white shadow">
-            {multi ? `Up to ${off}% off` : `${off}% off`}
+            {multi && product.variants.some((v) => percentOff(v) !== off) ? `Up to ${off}% off` : `${off}% off`}
           </span>
         )}
         <ProductArt
