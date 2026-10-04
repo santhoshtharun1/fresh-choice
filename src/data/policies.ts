@@ -17,13 +17,14 @@ export const policies: Policy[] = [
         body: [
           "We don't ask you to create an account. When you send an order or a bulk enquiry, the website opens WhatsApp with a message containing your name, phone number (if you add it), delivery address and the products you chose. We only receive this when you press send in WhatsApp.",
           "Your order list is saved in your own browser on this device so it is still there when you come back. It is not sent to us until you send the order.",
+          "We count visits and button taps (for example, how many orders are sent from the site) using a privacy-friendly analytics tool that does not use cookies and does not record your name, phone number or address.",
         ],
       },
       {
         heading: "How we use it",
         body: [
           "We use your details only to confirm, pack and deliver your order, and to contact you about it.",
-          "For deliveries by Rapido parcel, we share your name, phone number and address with Rapido so they can deliver. We don't sell or share your details with anyone else.",
+          "To deliver your order, we share your name, phone number and address with our delivery partner. We don't sell or share your details with anyone else.",
         ],
       },
       { heading: "Questions or deletion", body: [`To ask what we hold about you or to have it deleted, ${contact}`] },
@@ -64,12 +65,12 @@ export const policies: Policy[] = [
     sections: [
       {
         heading: `Within ${r} km of our store`,
-        body: ["Our own team delivers to your door. Pay cash on delivery or by UPI. We confirm the delivery time on WhatsApp."],
+        body: ["Free doorstep delivery by our delivery partner. Pay cash on delivery or by UPI. We confirm the delivery time on WhatsApp."],
       },
       {
         heading: `More than ${r} km away`,
         body: [
-          "We pack your order and send it by Rapido parcel once your UPI payment is received. You pay the Rapido fare, which we tell you before booking.",
+          "Our delivery partner delivers to your door once your UPI payment is received. Delivery charges are paid by you, and we tell you the exact amount before dispatch.",
         ],
       },
       {
@@ -102,7 +103,7 @@ export const policies: Policy[] = [
         heading: "What we can't accept",
         body: [
           "Products that have been opened, used or not kept in their original packaging, except for a genuine quality problem reported within 24 hours.",
-          "Rapido fares already paid are not refundable unless the problem was our mistake.",
+          "Delivery charges already paid are not refundable unless the problem was our mistake.",
         ],
       },
       { heading: "Contact", body: [contact] },

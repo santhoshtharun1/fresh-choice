@@ -8,7 +8,7 @@ export function ShopView({ active }: { active?: CategoryId }) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 pt-10 sm:px-6">
-      <h1 className="font-display text-4xl sm:text-5xl">{cat ? cat.name : "Our oils"}</h1>
+      <h1 className="font-display text-4xl sm:text-5xl">{cat ? cat.name : "Fresh from the chekku"}</h1>
       {cat && <p lang="kn" className="mt-1 font-kannada text-lg text-[var(--wood)]">{cat.kannada}</p>}
       <p className="mt-3 max-w-xl text-[var(--muted)]">
         {cat ? cat.blurb : "Every oil is pressed slowly in a wooden chekku."} Prices follow the market and are confirmed on WhatsApp.

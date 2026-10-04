@@ -48,6 +48,29 @@ The site's public address (link previews, sitemap, Google data) is read from the
 
 **Custom domain later:** in the host's domain settings, add `freshchoicewoodpressed.in` and create the DNS records it shows at the domain registrar. HTTPS is automatic.
 
+## Visitor and enquiry tracking (Umami)
+
+Free, cookie-free analytics. Off until a website ID is set.
+
+1. Sign up at cloud.umami.is → **Add website** → domain `freshchoice-oils.vercel.app` → copy the **Website ID**.
+2. Vercel → project → **Settings → Environment Variables** → `NEXT_PUBLIC_UMAMI_WEBSITE_ID` = that ID → redeploy.
+3. Umami → website → **Share** → turn on the share URL to give the client a read-only dashboard.
+
+What is counted (only on the live address, never names, phones or addresses):
+
+| Event | When | Data |
+|---|---|---|
+| page views | every visit | page, device, city, referrer |
+| `add_to_list` | Add / Add to order list | product, size |
+| `order_sent` | Send order on WhatsApp | ref, items, total, delivery, payment |
+| `quick_order_sent` | Order just this | ref, product, size, qty, total |
+| `bulk_quote_sent` | bulk quote form | ref, business type, frequency |
+| `whatsapp_chat` | any chat-with-us button | where it was tapped |
+| `call_click`, `directions_click` | store and footer buttons | where it was tapped |
+
+Every order message ends with `Ref: FC-DDMM-XXXX (sent from the website)` (`FCB-` for bulk), the same ref
+recorded in Umami, so website orders can be matched one-to-one with the shop's WhatsApp chats.
+
 ## Roadmap
 
 - **Phase 2:** move catalog to Supabase, admin page for prices/stock, cart checkout with Razorpay/UPI, orders table, distance-based delivery fee.

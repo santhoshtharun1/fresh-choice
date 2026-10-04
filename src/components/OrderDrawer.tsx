@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getProduct } from "@/data/catalog";
 import { site } from "@/config/site";
-import { orderMessage, rupees, waLink, type Customer } from "@/lib/whatsapp";
+import { cleanPhone, orderMessage, rupees, waLink, type Customer } from "@/lib/whatsapp";
+import { orderRef, track } from "@/lib/analytics";
 import { priceOf, useOrder } from "./OrderProvider";
 import { ProductArt } from "./ProductArt";
 
@@ -28,7 +29,8 @@ export function OrderDrawer() {
     };
   }, [open, setOpen]);
 
-  const missing = !c.name.trim() || !c.address.trim();
+  const badPhone = !cleanPhone(c.phone);
+  const missing = !c.name.trim() || badPhone || !c.address.trim();
   const saved = lines.reduce((s, l) => {
     const v = getProduct(l.slug)?.variants.find((x) => x.size === l.size);
     return s + (v?.mrp && v.mrp > v.price ? (v.mrp - v.price) * l.qty : 0);
@@ -37,6 +39,7 @@ export function OrderDrawer() {
   const send = () => {
     setTried(true);
     if (missing || !lines.length) return;
+    const ref = orderRef();
     const msg = orderMessage(
       lines.map((l) => ({
         name: getProduct(l.slug)!.name,
@@ -45,7 +48,15 @@ export function OrderDrawer() {
         qty: l.qty,
       })),
       c,
+      ref,
     );
+    track("order_sent", {
+      ref,
+      items: lines.reduce((n, l) => n + l.qty, 0),
+      total,
+      delivery: c.delivery === "near" ? "within 3 km" : "beyond 3 km",
+      payment: c.delivery === "near" && c.payment === "cod" ? "COD" : "UPI",
+    });
     window.open(waLink(msg), "_blank", "noopener");
   };
 
@@ -126,7 +137,17 @@ export function OrderDrawer() {
 
             <form className="mx-5 mb-6 mt-6 space-y-4" onSubmit={(e) => { e.preventDefault(); send(); }}>
               <Field label="Your name" value={c.name} onChange={(v) => setC({ ...c, name: v })} error={tried && !c.name.trim()} autoComplete="name" />
-              <Field label="Phone (optional)" value={c.phone} onChange={(v) => setC({ ...c, phone: v })} type="tel" autoComplete="tel" />
+              <Field
+                label="Phone number"
+                value={c.phone}
+                onChange={(v) => setC({ ...c, phone: v })}
+                error={tried && badPhone}
+                hint={tried && badPhone ? (c.phone.trim() ? "Enter a valid 10-digit mobile number." : "We need this to confirm your order.") : undefined}
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                placeholder="10-digit mobile number"
+              />
               <Field label="Delivery address" value={c.address} onChange={(v) => setC({ ...c, address: v })} error={tried && !c.address.trim()} multiline autoComplete="street-address" />
               <fieldset>
                 <legend className="mb-2 text-sm font-semibold">How far are you from us?</legend>
@@ -136,14 +157,14 @@ export function OrderDrawer() {
                     checked={c.delivery === "near"}
                     onChange={() => setC({ ...c, delivery: "near" })}
                     title={`Within ${site.freeDeliveryRadiusKm} km`}
-                    note="Our team delivers to your door. Pay cash on delivery or UPI."
+                    note="Free doorstep delivery by our delivery partner. Pay cash on delivery or UPI."
                   />
                   <Choice
                     name="delivery"
                     checked={c.delivery === "far"}
                     onChange={() => setC({ ...c, delivery: "far" })}
                     title={`More than ${site.freeDeliveryRadiusKm} km`}
-                    note="We send it by Rapido parcel. Pay by UPI on WhatsApp before dispatch, plus the Rapido fare."
+                    note="Delivered by our delivery partner. Delivery charges are extra and we'll share them on WhatsApp. Pay by UPI before dispatch."
                   />
                 </div>
               </fieldset>
@@ -170,7 +191,7 @@ export function OrderDrawer() {
               )}
               {tried && missing && (
                 <p className="text-sm font-semibold text-[#A3361F]" role="alert">
-                  Add your name and address so we know where to deliver.
+                  Add your name, phone number and address so we can confirm and deliver.
                 </p>
               )}
               <button type="submit" className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#1E8E4E] font-semibold text-white hover:bg-[#177240]">
@@ -202,7 +223,10 @@ function Field(props: {
   error?: boolean;
   multiline?: boolean;
   type?: string;
+  inputMode?: "tel" | "text";
   autoComplete?: string;
+  placeholder?: string;
+  hint?: string;
 }) {
   const cls = `w-full rounded-2xl border bg-white px-4 py-2.5 ${props.error ? "border-[#A3361F]" : "border-[var(--line)]"}`;
   return (
@@ -211,8 +235,18 @@ function Field(props: {
       {props.multiline ? (
         <textarea rows={3} className={cls} value={props.value} onChange={(e) => props.onChange(e.target.value)} autoComplete={props.autoComplete} />
       ) : (
-        <input type={props.type ?? "text"} className={cls} value={props.value} onChange={(e) => props.onChange(e.target.value)} autoComplete={props.autoComplete} />
+        <input
+          type={props.type ?? "text"}
+          inputMode={props.inputMode}
+          className={cls}
+          value={props.value}
+          onChange={(e) => props.onChange(e.target.value)}
+          autoComplete={props.autoComplete}
+          placeholder={props.placeholder}
+          aria-invalid={props.error || undefined}
+        />
       )}
+      {props.hint && <span className="mt-1 block text-sm text-[#A3361F]">{props.hint}</span>}
     </label>
   );
 }

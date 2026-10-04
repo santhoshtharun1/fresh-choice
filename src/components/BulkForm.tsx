@@ -4,6 +4,7 @@ import { useState } from "react";
 import { site } from "@/config/site";
 import { waLink } from "@/lib/whatsapp";
 import { WaIcon } from "./OrderDrawer";
+import { orderRef, track } from "@/lib/analytics";
 
 const types = ["Restaurant", "Hotel", "Caterer", "Retail store", "Grocery store", "Institution", "Other"];
 
@@ -18,6 +19,7 @@ export function BulkForm() {
     e.preventDefault();
     setTried(true);
     if (missing) return;
+    const ref = orderRef("FCB");
     const msg = [
       `Hi ${site.name}, I'd like a bulk quote.`,
       "",
@@ -29,7 +31,10 @@ export function BulkForm() {
       "",
       `What we need:`,
       f.needs,
+      "",
+      `Ref: ${ref} (sent from the website)`,
     ].filter((l) => l !== false && l !== undefined).join("\n");
+    track("bulk_quote_sent", { ref, type: f.type, frequency: f.frequency });
     window.open(waLink(msg), "_blank", "noopener");
   };
 

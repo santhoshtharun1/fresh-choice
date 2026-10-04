@@ -126,7 +126,7 @@ const faqs = [
   ["Can I cook with castor oil or deepam oil?", "No. Castor oil is for hair and skin, and deepam oil is only for lamps. Neither is for cooking or eating."],
   [
     "How do delivery and payment work?",
-    `Within ${site.freeDeliveryRadiusKm} km of our store, our team delivers and you can pay cash on delivery or by UPI. Further away, we send it by Rapido parcel after UPI payment, and you pay the Rapido fare. There is no minimum order.`,
+    `Within ${site.freeDeliveryRadiusKm} km of our store, delivery to your door is free and you can pay cash on delivery or by UPI. Further away, our delivery partner delivers after UPI payment, and delivery charges are paid by you. There is no minimum order.`,
   ],
 ];
 

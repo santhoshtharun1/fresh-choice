@@ -28,10 +28,12 @@ export default function Home() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/shop" className="rounded-full bg-[var(--oil)] px-6 py-3 font-semibold text-[var(--ink)] hover:bg-[#EDB447]">
-                Shop the oils
+                Order fresh oil
               </Link>
               <a
                 href={waLink(`Hi ${site.name}, I'd like to place an order.`)}
+                data-umami-event="whatsapp_chat"
+                data-umami-event-from="hero"
                 target="_blank"
                 rel="noopener"
                 className="flex items-center gap-2 rounded-full border border-[var(--rice)]/40 px-6 py-3 font-semibold hover:bg-white/10"
@@ -67,8 +69,8 @@ export default function Home() {
       {/* Featured */}
       <section className="mx-auto max-w-6xl px-4 pt-20 sm:px-6">
         <div className="flex items-end justify-between gap-4">
-          <h2 className="font-display text-3xl sm:text-4xl">Our oils</h2>
-          <Link href="/shop" className="font-semibold text-[var(--leaf)] underline underline-offset-4">See all products</Link>
+          <h2 className="font-display text-3xl sm:text-4xl">Pressed fresh for your kitchen</h2>
+          <Link href="/shop" className="font-semibold text-[var(--leaf)] underline underline-offset-4">View all</Link>
         </div>
         <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-3">
           {featured.map((p) => <ProductCard key={p.slug} product={p} />)}
@@ -86,7 +88,7 @@ export default function Home() {
           {[
             ["Add to your order list", "Pick products and sizes. Your list stays saved on this phone."],
             ["Send it on WhatsApp", "One tap sends the full list with your address. No app or account needed."],
-            ["We confirm and deliver", "We reply with the final price, then deliver or send it by Rapido."],
+            ["We confirm and deliver", "We reply with the final price and our delivery partner brings it to your door."],
           ].map(([t, d], i) => (
             <li key={t} className="flex gap-4">
               <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[var(--oil)] font-display text-xl">{i + 1}</span>
@@ -108,11 +110,11 @@ export default function Home() {
             <dl className="mt-6 space-y-5">
               <div>
                 <dt className="text-lg font-semibold">Within {site.freeDeliveryRadiusKm} km of our store</dt>
-                <dd className="text-[var(--muted)]">Our own team brings it to your door. Pay cash on delivery or by UPI.</dd>
+                <dd className="text-[var(--muted)]">Free doorstep delivery by our delivery partner. Pay cash on delivery or by UPI.</dd>
               </div>
               <div>
                 <dt className="text-lg font-semibold">More than {site.freeDeliveryRadiusKm} km away</dt>
-                <dd className="text-[var(--muted)]">We pack it and send it by Rapido parcel. Pay by UPI on WhatsApp before we dispatch, plus the Rapido fare, which we&apos;ll tell you before booking.</dd>
+                <dd className="text-[var(--muted)]">Our delivery partner brings it to your door. Delivery charges are extra, and we&apos;ll tell you the exact amount on WhatsApp before dispatch. Pay by UPI.</dd>
               </div>
             </dl>
             <p className="mt-6 font-semibold">No minimum order.</p>
@@ -135,14 +137,16 @@ export default function Home() {
               <OpenNow />
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
-              <a href={site.mapsUrl} target="_blank" rel="noopener" className="rounded-full bg-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--rice)] hover:bg-[var(--leaf-deep)]">
+              <a href={site.mapsUrl} target="_blank" rel="noopener" data-umami-event="directions_click" className="rounded-full bg-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--rice)] hover:bg-[var(--leaf-deep)]">
                 Directions
               </a>
-              <a href={`tel:+${site.whatsapp}`} className="rounded-full border border-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--leaf)] hover:bg-[var(--leaf)]/5">
+              <a href={`tel:+${site.whatsapp}`} data-umami-event="call_click" data-umami-event-from="store" className="rounded-full border border-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--leaf)] hover:bg-[var(--leaf)]/5">
                 Call
               </a>
               <a
                 href={waLink(`Hi ${site.name}, I'd like to visit the store.`)}
+                data-umami-event="whatsapp_chat"
+                data-umami-event-from="store"
                 target="_blank"
                 rel="noopener"
                 className="flex items-center gap-2 rounded-full border border-[#1E8E4E] px-5 py-2.5 font-semibold text-[#177240] hover:bg-[#1E8E4E]/5"
@@ -183,14 +187,14 @@ export default function Home() {
 
 function DeliveryRings() {
   return (
-    <svg viewBox="0 0 320 320" className="mx-auto w-full max-w-[320px]" role="img" aria-label="Delivery zones: our team within 3 km, Rapido parcel beyond">
+    <svg viewBox="0 0 320 320" className="mx-auto w-full max-w-[320px]" role="img" aria-label="Delivery zones: free delivery within 3 km, partner delivery with charges beyond">
       <circle cx="160" cy="160" r="150" fill="#fff" fillOpacity="0.55" stroke="#1f4a2e" strokeOpacity="0.35" strokeDasharray="6 8" strokeWidth="2" />
       <circle cx="160" cy="160" r="78" fill="#1f4a2e" />
       <circle cx="160" cy="124" r="6" fill="#e2a12e" />
-      <text x="160" y="156" textAnchor="middle" fill="#f5f6f0" fontSize="15" fontWeight="600">Our team</text>
+      <text x="160" y="156" textAnchor="middle" fill="#f5f6f0" fontSize="15" fontWeight="600">Free delivery</text>
       <text x="160" y="176" textAnchor="middle" fill="#f5f6f0" fontSize="13" opacity=".8">0 – 3 km</text>
-            <text x="160" y="40" textAnchor="middle" fill="#1f4a2e" fontSize="14" fontWeight="600">Rapido parcel</text>
-      <text x="160" y="58" textAnchor="middle" fill="#5d6658" fontSize="12">beyond 3 km</text>
+            <text x="160" y="40" textAnchor="middle" fill="#1f4a2e" fontSize="14" fontWeight="600">Partner delivery</text>
+      <text x="160" y="58" textAnchor="middle" fill="#5d6658" fontSize="12">beyond 3 km · charges apply</text>
       <g fill="none" stroke="#e2a12e" strokeWidth="3" strokeLinecap="round">
         <path d="M232 214l40 40" />
         <path d="M262 254h10v-10" />

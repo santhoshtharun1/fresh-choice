@@ -36,5 +36,5 @@ export const site = {
   // 24h clock, Bengaluru time; drives the live "Open now" badge
   openHours: { open: 9, close: 21 },
   // Developer credit in the footer. Add a url (WhatsApp, LinkedIn, portfolio) to make it a link.
-  credit: { name: "Santhosh Tharun", url: "" },
+  credit: { name: "Mithra-Sankalp Software Solutions", url: "" },
 } as const;
