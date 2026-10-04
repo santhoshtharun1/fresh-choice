@@ -52,6 +52,7 @@ export function OrderDrawer() {
     );
     track("order_sent", {
       ref,
+      products: lines.map((l) => `${getProduct(l.slug)!.name} ${l.size} ×${l.qty}`).join(", "),
       items: lines.reduce((n, l) => n + l.qty, 0),
       total,
       delivery: c.delivery === "near" ? "within 3 km" : "beyond 3 km",

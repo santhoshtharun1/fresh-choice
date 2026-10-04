@@ -71,6 +71,23 @@ What is counted (only on the live address, never names, phones or addresses):
 Every order message ends with `Ref: FC-DDMM-XXXX (sent from the website)` (`FCB-` for bulk), the same ref
 recorded in Umami, so website orders can be matched one-to-one with the shop's WhatsApp chats.
 
+## Private Google Sheet log
+
+Every visit, add-to-list, order, quick order, bulk quote and WhatsApp/Call/Directions tap on the live
+site becomes a row in a private Google Sheet (tabs: Summary, Enquiries, Visits, Added to list).
+No customer names, phones or addresses. Off until the two env vars below are set.
+
+1. Create a Google Sheet, e.g. "Fresh Choice – Website log". **File → Settings → Time zone → (GMT+05:30) India**.
+2. **Extensions → Apps Script** → replace the code with `docs/google-sheet/Code.gs` → set `TOKEN` to a long random secret → **Save**.
+3. In the function menu pick **setup** → **Run** → allow access. This creates the tabs and the Summary.
+4. **Deploy → New deployment** → type **Web app** → Execute as **Me** → Who has access **Anyone** → **Deploy** → copy the Web app URL.
+5. Vercel → Environment Variables (Production, type **Secret**):
+   `SHEET_WEBHOOK_URL` = the Web app URL, `SHEET_WEBHOOK_TOKEN` = the same secret as in step 2 → **Redeploy**.
+6. Share the sheet with the team (**Share** → add emails as Viewer or Editor). Download with **File → Download → Excel**.
+
+The Web app URL and token live only in Vercel's server settings; the website's code never exposes them.
+Only requests to the live address are logged. If you edit Code.gs later, use **Deploy → Manage deployments → Edit → New version** so the URL stays the same.
+
 ## Roadmap
 
 - **Phase 2:** move catalog to Supabase, admin page for prices/stock, cart checkout with Razorpay/UPI, orders table, distance-based delivery fee.

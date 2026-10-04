@@ -17,7 +17,7 @@ export const policies: Policy[] = [
         body: [
           "We don't ask you to create an account. When you send an order or a bulk enquiry, the website opens WhatsApp with a message containing your name, phone number (if you add it), delivery address and the products you chose. We only receive this when you press send in WhatsApp.",
           "Your order list is saved in your own browser on this device so it is still there when you come back. It is not sent to us until you send the order.",
-          "We count visits and button taps (for example, how many orders are sent from the site) using a privacy-friendly analytics tool that does not use cookies and does not record your name, phone number or address.",
+          "We count visits and button taps (for example, how many orders are sent from the site) using a privacy-friendly analytics tool and our own private records. Neither uses cookies or records your name, phone number or address.",
         ],
       },
       {
