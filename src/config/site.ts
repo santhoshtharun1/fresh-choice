@@ -28,7 +28,7 @@ export const site = {
   },
   // The shop's Google Maps listing ("Saisangama Salcecorporation"): its coordinates and Google ID (cid)
   geo: { lat: 13.0313525, lng: 77.4986379 },
-  mapsPlaceName: "Saisangama Salcecorporation",
+  mapsCid: "5497943296574528958",
   mapsUrl: "https://maps.google.com/?cid=5497943296574528958",
   directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=13.0313525,77.4986379",
   freeDeliveryRadiusKm: 3,
