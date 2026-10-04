@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { getProduct } from "@/data/catalog";
 import { site } from "@/config/site";
 import { cleanPhone, orderMessage, rupees, waLink, type Customer } from "@/lib/whatsapp";
+import { orderRef, track } from "@/lib/analytics";
 import { priceOf, useOrder } from "./OrderProvider";
 import { ProductArt } from "./ProductArt";
 
@@ -38,6 +39,7 @@ export function OrderDrawer() {
   const send = () => {
     setTried(true);
     if (missing || !lines.length) return;
+    const ref = orderRef();
     const msg = orderMessage(
       lines.map((l) => ({
         name: getProduct(l.slug)!.name,
@@ -46,7 +48,15 @@ export function OrderDrawer() {
         qty: l.qty,
       })),
       c,
+      ref,
     );
+    track("order_sent", {
+      ref,
+      items: lines.reduce((n, l) => n + l.qty, 0),
+      total,
+      delivery: c.delivery === "near" ? "within 3 km" : "beyond 3 km",
+      payment: c.delivery === "near" && c.payment === "cod" ? "COD" : "UPI",
+    });
     window.open(waLink(msg), "_blank", "noopener");
   };
 

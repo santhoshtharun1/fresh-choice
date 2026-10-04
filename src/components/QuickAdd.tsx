@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Product } from "@/data/catalog";
 import { useOrder } from "./OrderProvider";
+import { track } from "@/lib/analytics";
 
 export function QuickAdd({ product }: { product: Product }) {
   const { add, setQty, lines } = useOrder();
@@ -58,7 +59,10 @@ export function QuickAdd({ product }: { product: Product }) {
       ) : (
         <button
           type="button"
-          onClick={() => add(product.slug, size)}
+          onClick={() => {
+            add(product.slug, size);
+            track("add_to_list", { product: product.name, size });
+          }}
           className="h-10 rounded-full sm:flex-1 bg-[var(--leaf)] px-4 text-sm font-semibold text-[var(--rice)] transition-colors hover:bg-[var(--leaf-deep)]"
         >
           Add

@@ -17,6 +17,8 @@ export default function NotFound() {
         </Link>
         <a
           href={waLink(`Hi ${site.name}, I need some help.`)}
+          data-umami-event="whatsapp_chat"
+          data-umami-event-from="404 page"
           target="_blank"
           rel="noopener"
           className="flex items-center gap-2 rounded-full border border-[#1E8E4E] px-6 py-3 font-semibold text-[#177240] hover:bg-[#1E8E4E]/5"

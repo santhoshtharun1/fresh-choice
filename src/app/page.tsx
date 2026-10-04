@@ -32,6 +32,8 @@ export default function Home() {
               </Link>
               <a
                 href={waLink(`Hi ${site.name}, I'd like to place an order.`)}
+                data-umami-event="whatsapp_chat"
+                data-umami-event-from="hero"
                 target="_blank"
                 rel="noopener"
                 className="flex items-center gap-2 rounded-full border border-[var(--rice)]/40 px-6 py-3 font-semibold hover:bg-white/10"
@@ -135,14 +137,16 @@ export default function Home() {
               <OpenNow />
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
-              <a href={site.mapsUrl} target="_blank" rel="noopener" className="rounded-full bg-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--rice)] hover:bg-[var(--leaf-deep)]">
+              <a href={site.mapsUrl} target="_blank" rel="noopener" data-umami-event="directions_click" className="rounded-full bg-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--rice)] hover:bg-[var(--leaf-deep)]">
                 Directions
               </a>
-              <a href={`tel:+${site.whatsapp}`} className="rounded-full border border-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--leaf)] hover:bg-[var(--leaf)]/5">
+              <a href={`tel:+${site.whatsapp}`} data-umami-event="call_click" data-umami-event-from="store" className="rounded-full border border-[var(--leaf)] px-5 py-2.5 font-semibold text-[var(--leaf)] hover:bg-[var(--leaf)]/5">
                 Call
               </a>
               <a
                 href={waLink(`Hi ${site.name}, I'd like to visit the store.`)}
+                data-umami-event="whatsapp_chat"
+                data-umami-event-from="store"
                 target="_blank"
                 rel="noopener"
                 className="flex items-center gap-2 rounded-full border border-[#1E8E4E] px-5 py-2.5 font-semibold text-[#177240] hover:bg-[#1E8E4E]/5"

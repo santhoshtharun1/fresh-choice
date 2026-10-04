@@ -31,7 +31,7 @@ export type Customer = {
 
 export const paysCod = (c: Customer) => c.delivery === "near" && c.payment === "cod";
 
-export function orderMessage(lines: OrderLine[], c: Customer) {
+export function orderMessage(lines: OrderLine[], c: Customer, ref: string) {
   const total = lines.reduce((s, l) => s + l.price * l.qty, 0);
   const items = lines
     .map((l) => `• ${l.name} – ${l.size} × ${l.qty} = ${rupees(l.price * l.qty)}`)
@@ -56,17 +56,21 @@ export function orderMessage(lines: OrderLine[], c: Customer) {
     `Address: ${c.address}`,
     `Delivery: ${delivery}`,
     `Payment: ${payment}`,
+    "",
+    `Ref: ${ref} (sent from the website)`,
   ]
     .filter((l) => l !== null)
     .join("\n");
 }
 
-export function quickOrderMessage(name: string, size: string, qty: number, price: number) {
+export function quickOrderMessage(name: string, size: string, qty: number, price: number, ref: string) {
   return [
     `Hi ${site.name}, I'd like to order:`,
     "",
     `• ${name} – ${size} × ${qty} = ${rupees(price * qty)}`,
     "",
     "Please confirm and share delivery details.",
+    "",
+    `Ref: ${ref} (sent from the website)`,
   ].join("\n");
 }

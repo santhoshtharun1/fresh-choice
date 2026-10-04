@@ -5,6 +5,7 @@ import { percentOff, type Product } from "@/data/catalog";
 import { quickOrderMessage, rupees, waLink } from "@/lib/whatsapp";
 import { useOrder } from "./OrderProvider";
 import { WaIcon } from "./OrderDrawer";
+import { orderRef, track } from "@/lib/analytics";
 
 export function BuyBox({ product }: { product: Product }) {
   const { add, setOpen } = useOrder();
@@ -58,20 +59,25 @@ export function BuyBox({ product }: { product: Product }) {
           type="button"
           onClick={() => {
             add(product.slug, size, qty);
+            track("add_to_list", { product: product.name, size });
             setAdded(true);
           }}
           className="h-12 rounded-full bg-[var(--leaf)] font-semibold text-[var(--rice)] hover:bg-[var(--leaf-deep)]"
         >
           Add to order list
         </button>
-        <a
-          href={waLink(quickOrderMessage(product.name, size, qty, price))}
-          target="_blank"
-          rel="noopener"
+        <button
+          type="button"
+          onClick={() => {
+            // ref is made at click time so every quick order gets its own code
+            const ref = orderRef();
+            track("quick_order_sent", { ref, product: product.name, size, qty, total: price * qty });
+            window.open(waLink(quickOrderMessage(product.name, size, qty, price, ref)), "_blank", "noopener");
+          }}
           className="flex h-12 items-center justify-center gap-2 rounded-full border-2 border-[#1E8E4E] font-semibold text-[#177240] hover:bg-[#1E8E4E]/5"
         >
           <WaIcon className="size-5" /> Order just this
-        </a>
+        </button>
       </div>
       {added && (
         <p className="mt-4 text-sm" role="status">
