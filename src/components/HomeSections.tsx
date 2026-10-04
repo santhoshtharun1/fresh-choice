@@ -27,7 +27,7 @@ export function HowItsMade() {
           <ol className="mt-8 space-y-6">
             {steps.map(([t, d], i) => (
               <li key={t} className="flex gap-4">
-                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[var(--leaf)] font-display text-lg text-[var(--rice)]">{i + 1}</span>
+                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[var(--leaf)] text-base font-bold text-[var(--rice)]">{i + 1}</span>
                 <div>
                   <h3 className="text-lg font-semibold">{t}</h3>
                   <p className="mt-1 text-[var(--muted)]">{d}</p>

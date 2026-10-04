@@ -127,7 +127,7 @@ export function OrderDrawer() {
 
             <div className="mx-5 flex items-baseline justify-between border-t-2 border-[var(--ink)] py-3">
               <span className="font-semibold">Estimated total</span>
-              <span className="font-display text-2xl tabular-nums">{rupees(total)}</span>
+              <span className="text-2xl font-bold tabular-nums tracking-tight">{rupees(total)}</span>
             </div>
             {saved > 0 && (
               <p className="mx-5 mb-2 text-sm font-semibold text-[#177240]">You save {rupees(saved)}</p>
