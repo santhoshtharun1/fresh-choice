@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { site } from "@/config/site";
-import { products } from "@/data/catalog";
+import { categories, productsIn } from "@/data/catalog";
 import { useOrder } from "./OrderProvider";
+
+// Products shown per category in the Shop menu before "View all"
+const MENU_LIMIT = 8;
 
 const nav = [
   { href: "/shop", label: "Shop" },
@@ -47,19 +50,44 @@ export function Header() {
                   <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" fill="none" />
                 </svg>
                 <div className="invisible absolute left-0 top-full pt-3 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                  <ul className="w-64 rounded-2xl border border-[var(--line)] bg-white p-2 shadow-xl" aria-label="Oils">
-                    {products.map((p) => (
-                      <li key={p.slug}>
-                        <Link href={`/product/${p.slug}`} className="flex items-baseline justify-between gap-3 rounded-xl px-3 py-2 hover:bg-[var(--card)]">
-                          <span>{p.name}</span>
-                          <span lang="kn" className="font-kannada text-xs text-[var(--muted)]">{p.kannada}</span>
-                        </Link>
-                      </li>
-                    ))}
-                    <li className="mt-1 border-t border-[var(--line)] pt-1">
-                      <Link href="/shop" className="block rounded-xl px-3 py-2 font-semibold text-[var(--leaf)] hover:bg-[var(--card)]">All oils</Link>
-                    </li>
-                  </ul>
+                  {/* One column per category; a new category (e.g. ghee) adds a column automatically */}
+                  <div className="rounded-2xl border border-[var(--line)] bg-white p-2 shadow-xl">
+                    <div className="flex">
+                      {categories.map((c) => {
+                        const items = productsIn(c.id);
+                        return (
+                          <div key={c.id} className="w-64">
+                            <Link href={`/shop/${c.id}`} className="block rounded-xl px-3 py-2 hover:bg-[var(--card)]">
+                              <span className="block font-semibold text-[var(--leaf)]">{c.name}</span>
+                              <span lang="kn" className="block font-kannada text-xs text-[var(--wood)]">{c.kannada}</span>
+                            </Link>
+                            <ul className="mt-1 border-t border-[var(--line)] pt-1" aria-label={c.name}>
+                              {items.slice(0, MENU_LIMIT).map((p) => (
+                                <li key={p.slug}>
+                                  <Link href={`/product/${p.slug}`} className="flex items-baseline justify-between gap-3 rounded-xl px-3 py-1.5 text-[0.95rem] hover:bg-[var(--card)]">
+                                    <span>{p.name}</span>
+                                    <span lang="kn" className="font-kannada text-xs text-[var(--muted)]">{p.kannada}</span>
+                                  </Link>
+                                </li>
+                              ))}
+                              {items.length > MENU_LIMIT && (
+                                <li>
+                                  <Link href={`/shop/${c.id}`} className="block rounded-xl px-3 py-1.5 text-sm font-semibold text-[var(--leaf)] hover:bg-[var(--card)]">
+                                    View all {items.length} →
+                                  </Link>
+                                </li>
+                              )}
+                            </ul>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {categories.length > 1 && (
+                      <Link href="/shop" className="mt-1 block rounded-xl border-t border-[var(--line)] px-3 py-2 font-semibold text-[var(--leaf)] hover:bg-[var(--card)]">
+                        All products
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </div>
             );
