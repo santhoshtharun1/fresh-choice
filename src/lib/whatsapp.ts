@@ -42,7 +42,7 @@ export function orderMessage(lines: OrderLine[], c: Customer, ref: string) {
       : `Beyond ${site.freeDeliveryRadiusKm} km – Via delivery partner (delivery charges paid by customer)`;
   const payment = paysCod(c)
     ? "Cash on delivery"
-    : "UPI (shop to share UPI details on WhatsApp)";
+    : "UPI (UPI details will be shared on WhatsApp)";
 
   return [
     `Hi ${site.name}, I'd like to order:`,

@@ -16,10 +16,15 @@ export function WhatsAppFab() {
       data-umami-event-from="floating button"
       target="_blank"
       rel="noopener"
-      aria-label="Chat with us on WhatsApp"
-      className={`fixed right-5 z-40 ${count ? "bottom-24 md:bottom-5" : "bottom-5"} grid size-14 place-items-center rounded-full bg-[#1E8E4E] text-white shadow-lg shadow-black/20 transition-transform hover:scale-105 hover:bg-[#177240]`}
+      className={`group fixed right-5 z-40 ${count ? "bottom-24 md:bottom-5" : "bottom-5"} flex items-center gap-2`}
     >
-      <WaIcon className="size-7" />
+      {/* Label beside the button */}
+      <span className="rounded-full bg-white px-3.5 py-2 text-sm font-semibold text-[var(--ink)] shadow-lg shadow-black/15 ring-1 ring-[var(--line)]">
+        Need help? <span className="text-[#177240]">Chat with us</span>
+      </span>
+      <span className="grid size-14 place-items-center rounded-full bg-[#1E8E4E] text-white shadow-lg shadow-black/20 transition-transform group-hover:scale-105 group-hover:bg-[#177240]">
+        <WaIcon className="size-7" />
+      </span>
     </a>
   );
 }

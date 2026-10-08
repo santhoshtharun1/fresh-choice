@@ -17,10 +17,10 @@ export const site = {
   whatsapp: "+918904171290",
   phoneDisplay: "+91 89041 71290",
   address:
-    "176, 7th Cross Rd, near Ganesha Temple Road, Gopal Nagar, Nelgadernhalli, Nagasandra, Bengaluru, Karnataka 560073",
+    "176, 7th Cross Rd, near Ganesha Temple Road, Gopal Nagar, Nelagadaranahalli, Nagasandra, Bengaluru, Karnataka 560073",
   // Same address split up for Google's structured data
   postal: {
-    streetAddress: "176, 7th Cross Rd, near Ganesha Temple Road, Gopal Nagar, Nelgadernhalli, Nagasandra",
+    streetAddress: "176, 7th Cross Rd, near Ganesha Temple Road, Gopal Nagar, Nelagadaranahalli, Nagasandra",
     addressLocality: "Bengaluru",
     addressRegion: "Karnataka",
     postalCode: "560073",
