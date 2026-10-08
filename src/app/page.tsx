@@ -193,7 +193,7 @@ function DeliveryRings() {
       <circle cx="160" cy="124" r="6" fill="#e2a12e" />
       <text x="160" y="156" textAnchor="middle" fill="#f5f6f0" fontSize="15" fontWeight="600">Free delivery</text>
       <text x="160" y="176" textAnchor="middle" fill="#f5f6f0" fontSize="13" opacity=".8">0 – 3 km</text>
-            <text x="160" y="40" textAnchor="middle" fill="#1f4a2e" fontSize="14" fontWeight="600">Partner delivery</text>
+            <text x="160" y="40" textAnchor="middle" fill="#1f4a2e" fontSize="14" fontWeight="600">Delivery partner</text>
       <text x="160" y="58" textAnchor="middle" fill="#5d6658" fontSize="12">beyond 3 km · charges apply</text>
       <g fill="none" stroke="#e2a12e" strokeWidth="3" strokeLinecap="round">
         <path d="M232 214l40 40" />
